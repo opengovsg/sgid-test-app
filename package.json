@@ -18,8 +18,8 @@
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js"
+    "dev": "nodemon web.js",
+    "start": "node web.js"
   },
   "engines": {
     "node": "12.x"
