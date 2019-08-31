@@ -1,10 +1,10 @@
 {
   "name": "node-oauth-example",
   "version": "1.0.0",
-  "description": "An example of oAuth2.0 using node",
-  "main": "index.js",
-  "repository": "https://githubb.com/sohamkamani/node-oauth-example",
-  "author": "sohamkamani",
+  "description": "sgID Test App",
+  "main": "web.js",
+  "repository": "https://githubb.com/datagovsg/sgID-test-app",
+  "author": "iewil",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.18.0",
