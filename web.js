@@ -16,7 +16,7 @@ const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
 const redirect_url = (environment == "production") ? process.env.REDIRECT_URL : process.env.REDIRECT_URL + port
 const url = process.env.URL
-const private_key = process.env.PRIVATE_KEY
+const private_key = process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY : fs.readFileSync('./private.pem', "utf8")
 
 // Create a new express application and use
 // the express static middleware, to serve all files
