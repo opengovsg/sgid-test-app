@@ -3,15 +3,21 @@ const express = require('express')
 
 // Import the axios library, to make HTTP requests
 var cons = require('consolidate');
-const axios = require('axios')
-const crypto = require('crypto')
+const axios = require('axios');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+
+const fs = require('fs');
+const pem = require('pem-file');
 
 // This is the client ID and client secret that you obtained
 // while registering the application
-const clientID = '<your client id>'
-const clientSecret = '<your client secret>'
-const grant_type = "authorization_code"
+const clientID = process.env.CLIENT_ID
+const clientSecret = process.env.CLIENT_SECRET
+const port = process.env.PORT
+const redirect_url = process.env.REDIRECT_URL + port
+const url = process.env.URL
+const private_key = fs.readFileSync('./private.pem', "utf8")
 
 // Create a new express application and use
 // the express static middleware, to serve all files
@@ -35,7 +41,7 @@ app.get('/callback', async (req, res) => {
 	  let response = await axios({
 	    // make a POST request
 	    method: 'post',
-	    // to the Github authentication API, with the client ID, client secret
+	    // to the sgID token API, with the client ID, client secret
 	    // and request token
 	    url: `${url}/oauth/token`,
 	    data: {
