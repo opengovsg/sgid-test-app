@@ -7,11 +7,18 @@
         <title>sgID Demo App</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <!-- <script src="main.js"></script> -->
 </head>
 
 <body>
-        <a href="https://api.digital-ic.sg/oauth/authorize?response_type=code&purpose=for%20fun&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri=http://localhost:10000/callback&nonce=test">Login with sgID</a>
+	<div class="container">
+		<div class="row justify-content-center align-items-center">
+			<div class="col-4" style="text-align: center; margin-top: 300px">
+        <a class="btn btn-primary" href="https://api.digital-ic.sg/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri=http://localhost:10000/callback&nonce=test" role="button">Login with sgID</a>
+      </div>
+   </div>
+  </div>
 </body>
 
 </html>

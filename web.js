@@ -6,16 +6,15 @@ var cons = require('consolidate');
 const axios = require('axios');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
-
 const fs = require('fs');
-const pem = require('pem-file');
 
 // This is the client ID and client secret that you obtained
 // while registering the application
+const environment = process.env.environment ? process.env.environment : "development"
 const clientID = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
-const redirect_url = process.env.REDIRECT_URL
+const redirect_url = (environment == "production") ? process.env.REDIRECT_URL : process.env.REDIRECT_URL + port
 const url = process.env.URL
 const private_key = fs.readFileSync('./private.pem', "utf8")
 
@@ -86,8 +85,8 @@ app.get('/callback', async (req, res) => {
 	  res.render('sample', decrypted)
 	  // res.redirect(`/welcome.html?decrypted=${JSON.stringify(decrypted)}`)
 	} catch (error) {
-		console.log(error)
-	  res.status(400).send(error.toString())
+		res.render('index')
+	  // res.status(400).send(error.toString())
 	}
 })
 

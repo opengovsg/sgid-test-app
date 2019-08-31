@@ -6,69 +6,153 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>sgID Demo App</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-  {{#sub}}
-    <p>sgID: {{sub}}</p>
-  {{/sub}}  
-  {{#nric_number}}
-    <p>NRIC Number: {{nric_number.value}}</p>
-  {{/nric_number}}
-  {{#name}}
-    <p>Name {{name.value}}</p>
-  {{/name}}
-  {{#sex}}
-    <p>Sex: {{sex.value}}</p>
-  {{/sex}}
-  {{#race}}
-    <p>Race: {{race.value}}</p>
-  {{/race}}
-  {{#secondary_race}}
-    <p>Secondary Race: {{secondary_race.value}}</p>
-  {{/secondary_race}}
-  {{#date_of_birth}}
-    <p>Date of Birth: {{date_of_birth.value}}</p>
-  {{/date_of_birth}}
-  {{#residential_status}}
-    <p>Residential Status: {{residential_status.value}}</p>
-  {{/residential_status}}
-  {{#nationality}}
-    <p>Nationality: {{nationality.value}}</p>
-  {{/nationality}}
-  {{#birth_country}}
-    <p>Birth Country: {{birth_country.value}}</p>
-  {{/birth_country}}
-  {{#passport_number}}
-    <p>Passport Nunber: {{passport_number.value}}</p>
-  {{/passport_number}}
-  {{#passport_expiry_date}}
-    <p>Passport Expiry Date{{passport_expiry_date.value}}</p>
-  {{/passport_expiry_date}}
-  {{#pass_type}}
-    <p>Pass Type: {{pass_type.value}}</p>
-  {{/pass_type}}
-  {{#pass_status}}
-    <p>Pass Status: {{pass_status.value}}</p>
-  {{/pass_status}}
-  {{#pass_expiry_date}}
-    <p>Pass Expirry Date: {{pass_expiry_date.value}}</p>
-  {{/pass_expiry_date}}
-  {{#mobile_number}}
-    <p>Mobile Number: {{mobile_number.value}}</p>
-  {{/mobile_number}}
-  {{#email}}
-    <p>Email: {{email.value}}</p>
-  {{/email}}
-  {{#registered_address}}
-    <p>Registered Address: {{registered_address.value}}</p>
-  {{/registered_address}}
-  {{#mailing_address}}
-    <p>Mailing Address: {{mailing_address.value}}</p>
-  {{/mailing_address}}
-  {{#employer_name}}
-    <p>Employer Name: {{employer_name.value}}</p>
-  {{/employer_name}}
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-8" style="text-align: center; margin-top: 100px;">
+        <table class="table" style="text-align: left;">
+          <thead>
+            <tr>
+              <th scope="col">Field</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#sub}}
+              <tr>
+                <th scope="row">sgID</th>
+                <td>{{sub}}</td>
+              </tr>
+            {{/sub}} 
+            {{#nric_number}}
+              <tr>
+                <th scope="row">NRIC number</th>
+                <td>{{nric_number.value}}</td>
+              </tr>
+            {{/nric_number}}
+            {{#name}}
+              <tr>
+                <th scope="row">Name</th>
+                <td>{{name.value}}</td>
+              </tr>
+            {{/name}}
+            {{#sex}}
+              <tr>
+                <th scope="row">Sex</th>
+                <td>{{sex.value}}</td>
+              </tr>
+            {{/sex}}
+            {{#race}}
+              <tr>
+                <th scope="row">Race</th>
+                <td>{{race.value}}</td>
+              </tr>
+            {{/race}}
+            {{#secondary_race}}
+              <tr>
+                <th scope="row">Secondary race</th>
+                <td>{{secondary_race.value}}</td>
+              </tr>
+            {{/secondary_race}}
+            {{#date_of_birth}}
+              <tr>
+                <th scope="row">Date of birth</th>
+                <td>{{date_of_birth.value}}</td>
+              </tr>
+            {{/date_of_birth}}
+            {{#residential_status}}
+              <tr>
+                <th scope="row">Residential status</th>
+                <td>{{residential_status.value}}</td>
+              </tr>
+            {{/residential_status}}
+            {{#nationality}}
+              <tr>
+                <th scope="row">Nationality</th>
+                <td>{{nationality.value}}</td>
+              </tr>
+            {{/nationality}}
+            {{#birth_country}}
+              <tr>
+                <th scope="row">Birth country</th>
+                <td>{{birth_country.value}}</td>
+              </tr>
+            {{/birth_country}}
+            {{#passport_number}}
+              <tr>
+                <th scope="row">Passport number</th>
+                <td>{{passport_number.value}}</td>
+              </tr>
+            {{/passport_number}}
+            {{#passport_expiry_date}}
+              <tr>
+                <th scope="row">Passport expiry date</th>
+                <td>{{passport_expiry_date.value}}</td>
+              </tr>
+            {{/passport_expiry_date}}
+            {{#pass_type}}
+              <tr>
+                <th scope="row">Pass type</th>
+                <td>{{pass_type.value}}</td>
+              </tr>
+            {{/pass_type}}
+            {{#pass_status}}
+              <tr>
+                <th scope="row">Pass status</th>
+                <td>{{pass_status.value}}</td>
+              </tr>
+            {{/pass_status}}
+            {{#pass_expiry_date}}
+              <tr>
+                <th scope="row">Pass expiry date</th>
+                <td>{{pass_expiry_date.value}}</td>
+              </tr>
+            {{/pass_expiry_date}}
+            {{#mobile_number}}
+              <tr>
+                <th scope="row">Mobile number</th>
+                <td>{{mobile_number.value}}</td>
+              </tr>
+            {{/mobile_number}}
+            {{#email}}
+              <tr>
+                <th scope="row">Email</th>
+                <td>{{email.value}}</td>
+              </tr>
+            {{/email}}
+            {{#registered_address}}
+              <tr>
+                <th scope="row">Registered address</th>
+                <td>{{registered_address.value}}</td>
+              </tr>
+            {{/registered_address}}
+            {{#mailing_address}}
+              <tr>
+                <th scope="row">Mailing address</th>
+                <td>{{mailing_address.value}}</td>
+              </tr>
+            {{/mailing_address}}
+            {{#employer_name}}
+              <tr>
+                <th scope="row">Employer name</th>
+                <td>{{employer_name.value}}</td>
+              </tr>
+            {{/employer_name}}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row justify-content-center align-items-center">
+      <div class="col-8" style="text-align: center;">
+        <a class="btn btn-primary" href="/" role="button">Try again</a>
+      </div>
+    </div>
+  </div>
+
+
 </body>
 <script>
   // We can get the token from the "access_token" query
@@ -77,7 +161,6 @@
   const decrypted = query.split('decrypted=')[1]
   const userInfo = JSON.parse(decrypted)
 
-  console.log(userInfo)
 
   for (var key in userInfo) {
     if (userInfo.hasOwnProperty(key)) {
