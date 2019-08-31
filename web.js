@@ -16,7 +16,8 @@ const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
 const redirect_url = (environment == "production") ? process.env.REDIRECT_URL : process.env.REDIRECT_URL + port
 const url = process.env.URL
-const private_key = process.env.PRIVATE_KEY ? process.env.PRIVATE_KEY : fs.readFileSync('./private.pem', "utf8")
+const private_key = (environment == "production") ? process.env.PRIVATE_KEY : fs.readFileSync('./private.pem', "utf8")
+
 
 // Create a new express application and use
 // the express static middleware, to serve all files
@@ -27,7 +28,7 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/src/views')
 
 app.get('/', function (req, res) {
-    res.render('index', {msg: 'Hello world!'})
+    res.render('index', { "redirect_url": redirect_url })
 });
 
 app.get('/callback', async (req, res) => {
@@ -85,6 +86,7 @@ app.get('/callback', async (req, res) => {
 	  res.render('sample', decrypted)
 	  // res.redirect(`/welcome.html?decrypted=${JSON.stringify(decrypted)}`)
 	} catch (error) {
+		console.log(error)
 		res.render('index')
 	  // res.status(400).send(error.toString())
 	}
