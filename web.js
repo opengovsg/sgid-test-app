@@ -15,7 +15,7 @@ const pem = require('pem-file');
 const clientID = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
-const redirect_url = process.env.REDIRECT_URL + port
+const redirect_url = process.env.REDIRECT_URL
 const url = process.env.URL
 const private_key = fs.readFileSync('./private.pem', "utf8")
 
