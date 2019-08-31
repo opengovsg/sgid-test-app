@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>sgID Demo App</title>
+</head>
+
+<body>
+  {{#sub}}
+    <p>sgID: {{sub}}</p>
+  {{/sub}}  
+  {{#nric_number}}
+    <p>NRIC Number: {{nric_number.value}}</p>
+  {{/nric_number}}
+  {{#name}}
+    <p>Name {{name.value}}</p>
+  {{/name}}
+  {{#sex}}
+    <p>Sex: {{sex.value}}</p>
+  {{/sex}}
+  {{#race}}
+    <p>Race: {{race.value}}</p>
+  {{/race}}
+  {{#secondary_race}}
+    <p>Secondary Race: {{secondary_race.value}}</p>
+  {{/secondary_race}}
+  {{#date_of_birth}}
+    <p>Date of Birth: {{date_of_birth.value}}</p>
+  {{/date_of_birth}}
+  {{#residential_status}}
+    <p>Residential Status: {{residential_status.value}}</p>
+  {{/residential_status}}
+  {{#nationality}}
+    <p>Nationality: {{nationality.value}}</p>
+  {{/nationality}}
+  {{#birth_country}}
+    <p>Birth Country: {{birth_country.value}}</p>
+  {{/birth_country}}
+  {{#passport_number}}
+    <p>Passport Nunber: {{passport_number.value}}</p>
+  {{/passport_number}}
+  {{#passport_expiry_date}}
+    <p>Passport Expiry Date{{passport_expiry_date.value}}</p>
+  {{/passport_expiry_date}}
+  {{#pass_type}}
+    <p>Pass Type: {{pass_type.value}}</p>
+  {{/pass_type}}
+  {{#pass_status}}
+    <p>Pass Status: {{pass_status.value}}</p>
+  {{/pass_status}}
+  {{#pass_expiry_date}}
+    <p>Pass Expirry Date: {{pass_expiry_date.value}}</p>
+  {{/pass_expiry_date}}
+  {{#mobile_number}}
+    <p>Mobile Number: {{mobile_number.value}}</p>
+  {{/mobile_number}}
+  {{#email}}
+    <p>Email: {{email.value}}</p>
+  {{/email}}
+  {{#registered_address}}
+    <p>Registered Address: {{registered_address.value}}</p>
+  {{/registered_address}}
+  {{#mailing_address}}
+    <p>Mailing Address: {{mailing_address.value}}</p>
+  {{/mailing_address}}
+  {{#employer_name}}
+    <p>Employer Name: {{employer_name.value}}</p>
+  {{/employer_name}}
+</body>
+<script>
+  // We can get the token from the "access_token" query
+  // param, available in the browsers "location" global
+  const query = window.location.search.substring(1)
+  const decrypted = query.split('decrypted=')[1]
+  const userInfo = JSON.parse(decrypted)
+
+  console.log(userInfo)
+
+  for (var key in userInfo) {
+    if (userInfo.hasOwnProperty(key)) {
+        const nameNode = document.createTextNode(key + " -> " + userInfo[key])
+        document.body.appendChild(nameNode)
+    }
+  }
+  // Call the user info API using the fetch browser library
+  // fetch('//api.github.com/user', {
+  //    headers: {
+  //      // Include the token in the Authorization header
+  //      Authorization: 'token ' + token
+  //    }
+  //  })
+  //  // Parse the response as JSON
+  //  .then(res => res.json())
+  //  .then(res => {
+  //    // Once we get the response (which has many fields)
+  //    // Documented here: https://developer.github.com/v3/users/#get-the-authenticated-user
+  //    // Write "Welcome <user name>" to the documents body
+  //    const nameNode = document.createTextNode(`Welcome, ${res.name}`)
+  //    document.body.appendChild(nameNode)
+  //  })
+</script>
+
+</html>
