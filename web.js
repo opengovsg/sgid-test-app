@@ -10,13 +10,13 @@ const fs = require('fs');
 
 // This is the client ID and client secret that you obtained
 // while registering the application
-const environment = process.env.environment ? process.env.environment : "development"
+const environment = process.env.ENVIRONMENT ? process.env.ENVIRONMENT : "development"
 const clientID = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
 const redirect_url = (environment == "production") ? process.env.REDIRECT_URL : process.env.REDIRECT_URL + port
 const url = process.env.URL
-const private_key = fs.readFileSync('./private.pem', "utf8")
+const private_key = process.env.PRIVATE_KEY
 
 // Create a new express application and use
 // the express static middleware, to serve all files
