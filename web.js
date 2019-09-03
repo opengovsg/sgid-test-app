@@ -43,7 +43,7 @@ app.get('/callback', async (req, res) => {
 	    method: 'post',
 	    // to the sgID token API, with the client ID, client secret
 	    // and request token
-	    url: `${url}/oauth/token`,
+	    url: `${url}/v1/oauth/token`,
 	    data: {
 				"client_id": clientID,
 				"client_secret": clientSecret,
@@ -69,7 +69,7 @@ app.get('/callback', async (req, res) => {
 	    method: 'get',
 	    // to the Github authentication API, with the client ID, client secret
 	    // and request token
-	    url: `${url}/oauth/userinfo/${token.sub}`,
+	    url: `${url}/v1/oauth/userinfo/${token.sub}`,
 	    // Set the content type header, so that we get the response in JSOn
 	    headers: {
 	      authorization: `Bearer ${access_token}`
