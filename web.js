@@ -29,7 +29,8 @@ app.set('views', __dirname + '/src/views')
 
 app.get('/', function (req, res) {
     res.render('index', { 
-    	"url": url
+    	"url": url,
+    	"redirect_url": redirect_url 
     })
 });
 
