@@ -28,7 +28,9 @@ app.set('view engine', 'html');
 app.set('views', __dirname + '/src/views')
 
 app.get('/', function (req, res) {
-    res.render('index', { "redirect_url": redirect_url })
+    res.render('index', { 
+    	"url": url
+    })
 });
 
 app.get('/callback', async (req, res) => {
