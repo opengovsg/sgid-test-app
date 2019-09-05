@@ -108,8 +108,12 @@ app.get('/callback', async (req, res) => {
 		// res.redirect(`/welcome.html?decrypted=${JSON.stringify(decrypted)}`)
 	} catch (error) {
 		console.log(error)
-		res.render('index')
-		// res.status(400).send(error.toString())
+		res.render('index', {
+			"urlEnv": req.urlEnv,
+			"url": req.baseUrl,
+			"redirect_url": redirect_url,
+			BASE_URLS: JSON.stringify(BASE_URLS),
+		})
 	}
 })
 
