@@ -2,22 +2,50 @@
 <html>
 
 <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>sgID Demo App</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>sgID Demo App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
-	<div class="container">
-		<div class="row justify-content-center align-items-center">
-			<div class="col-4" style="text-align: center; margin-top: 300px">
-        <a class="btn btn-primary" href="{{ url }}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{redirect_url}}/callback&nonce=test" role="button">Login with sgID</a>
+  <div class="container">
+    <div class="row justify-content-center align-items-center">
+
+
+      <div class="col-4" style="text-align: center; margin-top: 300px">
+        <select id="env-select" class="custom-select custom-select-lg mb-3" onchange="updateAuthorizeUrl()">
+          <option value="PROD">Production</option>
+          <option value="STAG">Staging</option>
+          <option value="DEV">Development</option>
+        </select>
+        <a class="btn btn-primary" id="login-btn" role="button">Login with sgID</a>
       </div>
-   </div>
+    </div>
   </div>
+  <script>
+    window.onload = function () {
+      setLoginUrl('{{urlEnv}}')
+      const envSelect = document.getElementById("env-select")
+      envSelect.value = '{{urlEnv}}'
+    }
+
+    function updateAuthorizeUrl() {
+      const env = document.getElementById("env-select").value
+      document.cookie = "env=" + env
+      setLoginUrl(env)
+    }
+
+    function setLoginUrl(env) {
+      const BASE_URLS = JSON.parse('{{{BASE_URLS}}}')
+      const loginBtn = document.getElementById("login-btn")
+      loginBtn.href = `${BASE_URLS[env]}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{redirect_url}}/callback&nonce=test`
+    }
+
+  </script>
 </body>
 
 </html>
