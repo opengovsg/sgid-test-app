@@ -42,7 +42,7 @@
     function setLoginUrl(env) {
       const BASE_URLS = JSON.parse('{{{BASE_URLS}}}')
       const loginBtn = document.getElementById("login-btn")
-      loginBtn.href = `${BASE_URLS[env]}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{redirect_url}}/callback&nonce=test`
+      loginBtn.href = `${BASE_URLS[env]}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test`
     }
 
   </script>

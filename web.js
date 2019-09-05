@@ -17,7 +17,7 @@ const environment = process.env.ENVIRONMENT ? process.env.ENVIRONMENT : "develop
 const clientID = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
-const redirect_url = (environment == "production") ? process.env.REDIRECT_URL : process.env.REDIRECT_URL + port
+const redirect_url = (environment == "production") ? process.env.REDIRECT_URL : process.env.REDIRECT_URL
 const private_key = (environment == "production") ? process.env.PRIVATE_KEY : fs.readFileSync('./private.pem', "utf8")
 
 const BASE_URLS = {
