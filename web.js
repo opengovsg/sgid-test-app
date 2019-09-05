@@ -37,8 +37,8 @@ app.set('views', __dirname + '/src/views')
 
 app.use((req, res, next) => {
 	const urlEnv = req.cookies.env
-	req.urlEnv = urlEnv
-	let baseUrl = BASE_URLS[urlEnv] || BASE_URLS.PROD
+	req.urlEnv = urlEnv || 'PROD'
+	let baseUrl = BASE_URLS[urlEnv]
 	req.baseUrl = baseUrl
 	next()
 })
