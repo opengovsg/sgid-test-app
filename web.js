@@ -2,7 +2,6 @@ require('dotenv').config();
 
 // Import the express lirbary
 const express = require('express')
-const cookieParser = require('cookie-parser')
 
 // Import the axios library, to make HTTP requests
 const cons = require('consolidate');
@@ -30,25 +29,15 @@ const BASE_URLS = {
 // the express static middleware, to serve all files
 // inside the public directory
 const app = express()
-app.use(cookieParser())
 app.engine('html', cons.mustache);
 app.set('view engine', 'html');
 app.set('views', __dirname + '/src/views')
 
-app.use((req, res, next) => {
-	const urlEnv = req.cookies.env
-	req.urlEnv = urlEnv || 'PROD'
-	let baseUrl = BASE_URLS[urlEnv]
-	req.baseUrl = baseUrl
-	next()
-})
 
 app.get('/', function (req, res) {
 	res.render('index', {
-		"urlEnv": req.urlEnv,
-		"url": req.baseUrl,
-		"redirect_url": redirect_url,
-		BASE_URLS: JSON.stringify(BASE_URLS),
+		redirect_url,
+		BASE_URLS,
 	})
 });
 
@@ -58,13 +47,14 @@ app.get('/callback', async (req, res) => {
 		// were sent to this route. We want the `code` param
 		const requestToken = req.query.code
 		const state = req.query.state
+		const baseUrl = BASE_URLS[state]
 
 		let response = await axios({
 			// make a POST request
 			method: 'post',
 			// to the sgID token API, with the client ID, client secret
 			// and request token
-			url: `${req.baseUrl}/v1/oauth/token`,
+			url: `${baseUrl}/v1/oauth/token`,
 			data: {
 				"client_id": clientID,
 				"client_secret": clientSecret,
@@ -90,7 +80,7 @@ app.get('/callback', async (req, res) => {
 			method: 'get',
 			// to the Github authentication API, with the client ID, client secret
 			// and request token
-			url: `${req.baseUrl}/v1/oauth/userinfo/${token.sub}`,
+			url: `${baseUrl}/v1/oauth/userinfo/${token.sub}`,
 			// Set the content type header, so that we get the response in JSOn
 			headers: {
 				authorization: `Bearer ${access_token}`
@@ -109,10 +99,8 @@ app.get('/callback', async (req, res) => {
 	} catch (error) {
 		console.log(error)
 		res.render('index', {
-			"urlEnv": req.urlEnv,
-			"url": req.baseUrl,
-			"redirect_url": redirect_url,
-			BASE_URLS: JSON.stringify(BASE_URLS),
+			redirect_url,
+			BASE_URLS,
 		})
 	}
 })
