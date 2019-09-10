@@ -80,7 +80,7 @@ app.get('/callback', async (req, res) => {
 			method: 'get',
 			// to the Github authentication API, with the client ID, client secret
 			// and request token
-			url: `${baseUrl}/v1/oauth/userinfo/${token.sub}`,
+			url: `${baseUrl}/v1/oauth/userinfo`,
 			// Set the content type header, so that we get the response in JSOn
 			headers: {
 				authorization: `Bearer ${access_token}`
