@@ -21,7 +21,8 @@ const private_key = (environment == "production") ? process.env.PRIVATE_KEY : fs
 
 const BASE_URLS = {
 	PROD: 'https://api.id.gov.sg',
-	STAG: 'https://api-master.id.gov.sg',
+	MAST: 'https://api-master.id.gov.sg',
+	STAG: 'https://api-staging.id.gov.sg',
 	DEV: 'https://api-test.id.gov.sg',
 }
 
