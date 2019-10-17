@@ -17,19 +17,19 @@
 
       <div class="col-4" style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh">
         <a class="btn btn-primary" id="login-btn" role="button" style="width: 250px"
-          href="{{{BASE_URLS.PROD}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=PROD">
+          href="{{{BASE_URLS.PROD}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=PROD">
           Login with sgID - Production
         </a>
         <a class="btn btn-warning" style="margin-top: 30px; width: 250px" id="login-btn" role="button"
-          href="{{{BASE_URLS.STAG}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=STAG">
+          href="{{{BASE_URLS.STAG}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=STAG">
           Login with sgID - Staging
         </a>
         <a class="btn btn-info" style="margin-top: 30px; width: 250px" id="login-btn" role="button"
-          href="{{{BASE_URLS.MAST}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=STAG">
+          href="{{{BASE_URLS.MAST}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=MAST">
           Login with sgID - Master
         </a>
         <a class="btn btn-danger" style="margin-top: 30px; width: 250px" id="login-btn" role="button"
-          href="{{{BASE_URLS.DEV}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=abc&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=DEV">
+          href="{{{BASE_URLS.DEV}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope=openid%20name%20sex%20race%20nationality&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=DEV">
           Login with sgID - Development
         </a>
       </div>
