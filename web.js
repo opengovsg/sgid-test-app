@@ -9,6 +9,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
+const { JWE, JWK } = require('node-jose')
 
 // This is the client ID and client secret that you obtained
 // while registering the application
@@ -89,20 +90,21 @@ app.get('/callback', async (req, res) => {
 			}
 		})
 
-		const { sub, encrypted_payload } = encrypted_user_response.data
-		const decrypted = aesRsaDecrypt(encrypted_payload, private_key)
-
+		const { sub, encrypted_payload, verification_key } = encrypted_user_response.data
+		const decrypted = await decryptJWE(encrypted_payload, private_key)
+		verifySignatures(verification_key, decrypted)
 		// redirect the user to the welcome page, along with the access token
 		// res.send({ sub ,decrypted})
 		// res.render('sample', {"name": "Sherlynn"})
 		decrypted.sub = sub
-		res.render('sample', decrypted)
+		res.render('result', decrypted)
 		// res.redirect(`/welcome.html?decrypted=${JSON.stringify(decrypted)}`)
 	} catch (error) {
 		console.log(error)
 		res.render('index', {
 			redirect_url,
 			BASE_URLS,
+			clientID
 		})
 	}
 })
@@ -119,7 +121,20 @@ function aesRsaDecrypt(encrypted_payload, private_key) {
 	return JSON.parse(decrypted)
 }
 
-function verifySignatures(sub, userPublicKey, decrypted) {
+async function decryptJWE(encryptedPayload, privateKey) {
+	try {
+		// import privateKey as a jwk
+		const key = await JWK.asKey(privateKey, 'pem')
+		// decrypt jwe
+		const result = await JWE.createDecrypt(key).decrypt(encryptedPayload)
+		// parse plaintext buffer to string then to JSON
+		return JSON.parse(result.plaintext.toString())
+	} catch (e) {
+		console.error(e)
+	}
+}
+
+function verifySignatures(userPublicKey, decrypted) {
 	for (let fieldKey in decrypted) {
 		const { value, signature } = decrypted[fieldKey]
 		const verify = crypto.createVerify('SHA256').update(JSON.stringify({ [fieldKey]: value })).end()
