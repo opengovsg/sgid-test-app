@@ -9,7 +9,7 @@ const axios = require('axios');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const fs = require('fs');
-const { JWE, JWK } = require('node-jose')
+const { JWE, JWK, JWS } = require('node-jose')
 
 // This is the client ID and client secret that you obtained
 // while registering the application
@@ -76,13 +76,13 @@ app.get('/callback', async (req, res) => {
 		let expires_in = response.data.expires_in
 		let id_token = response.data.id_token
 
-		let token = jwt.decode(id_token);
+		let decodedSub = await decodeIdToken(id_token, baseUrl);
 
 		let encrypted_user_response = await axios({
 			// make a POST request
 			method: 'get',
 			// to the Github authentication API, with the client ID, client secret
-			// and request token
+			// and access token
 			url: `${baseUrl}/v1/oauth/userinfo`,
 			// Set the content type header, so that we get the response in JSOn
 			headers: {
@@ -90,13 +90,13 @@ app.get('/callback', async (req, res) => {
 			}
 		})
 
-		const { sub, encrypted_payload, verification_key } = encrypted_user_response.data
+		const { encrypted_payload, verification_key } = encrypted_user_response.data
 		const decrypted = await decryptJWE(encrypted_payload, private_key)
 		verifySignatures(verification_key, decrypted)
 		// redirect the user to the welcome page, along with the access token
 		// res.send({ sub ,decrypted})
 		// res.render('sample', {"name": "Sherlynn"})
-		decrypted.sub = sub
+		decrypted.sub = decodedSub
 		res.render('result', decrypted)
 		// res.redirect(`/welcome.html?decrypted=${JSON.stringify(decrypted)}`)
 	} catch (error) {
@@ -108,6 +108,8 @@ app.get('/callback', async (req, res) => {
 		})
 	}
 })
+
+
 
 function aesRsaDecrypt(encrypted_payload, private_key) {
 	const OUTPUT_ENCODING = 'base64'
@@ -132,6 +134,18 @@ async function decryptJWE(encryptedPayload, privateKey) {
 	} catch (e) {
 		console.error(e)
 	}
+}
+
+async function decodeIdToken(token, baseUrl) {
+	// fetch server public key
+	const response = await axios.get(baseUrl + '/v1/oauth/certs')
+	// create JWK
+	const publicKey = await JWK.asKey(response.data.keys[0])
+	// decode and verify id token
+	const { payload } = await JWS.createVerify(publicKey).verify(token)
+	// parse payload and retrieve sub
+	const { sub } = JSON.parse(payload.toString())
+	return sub
 }
 
 function verifySignatures(userPublicKey, decrypted) {
