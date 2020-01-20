@@ -39,7 +39,10 @@
               <th scope="row">NRIC number</th>
               <td>{{nric_number.value}}</td>
               {{#nric_number.verified}}
-              <td>✅</td>
+              <td>✅ VERIFIED</td>
+              {{/nric_number.verified}}
+              {{^nric_number.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/nric_number.verified}}
             </tr>
             {{/nric_number}}
@@ -48,7 +51,10 @@
               <th scope="row">Name</th>
               <td>{{name.value}}</td>
               {{#name.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/name.verified}}
+              {{^name.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/name.verified}}
             </tr>
             {{/name}}
@@ -57,7 +63,10 @@
               <th scope="row">Sex</th>
               <td>{{sex.value}}</td>
               {{#sex.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/sex.verified}}
+              {{^sex.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/sex.verified}}
             </tr>
             {{/sex}}
@@ -66,7 +75,10 @@
               <th scope="row">Race</th>
               <td>{{race.value}}</td>
               {{#race.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/race.verified}}
+              {{^race.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/race.verified}}
             </tr>
             {{/race}}
@@ -75,7 +87,10 @@
               <th scope="row">Secondary race</th>
               <td>{{secondary_race.value}}</td>
               {{#secondary_race.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/secondary_race.verified}}
+              {{^secondary_race.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/secondary_race.verified}}
             </tr>
             {{/secondary_race}}
@@ -84,7 +99,10 @@
               <th scope="row">Date of birth</th>
               <td>{{date_of_birth.value}}</td>
               {{#date_of_birth.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/date_of_birth.verified}}
+              {{^date_of_birth.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/date_of_birth.verified}}
             </tr>
             {{/date_of_birth}}
@@ -93,7 +111,10 @@
               <th scope="row">Residential status</th>
               <td>{{residential_status.value}}</td>
               {{#residential_status.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/residential_status.verified}}
+              {{^residential_status.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/residential_status.verified}}
             </tr>
             {{/residential_status}}
@@ -102,7 +123,10 @@
               <th scope="row">Nationality</th>
               <td>{{nationality.value}}</td>
               {{#nationality.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/nationality.verified}}
+              {{^nationality.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/nationality.verified}}
             </tr>
             {{/nationality}}
@@ -111,7 +135,10 @@
               <th scope="row">Birth country</th>
               <td>{{birth_country.value}}</td>
               {{#birth_country.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/birth_country.verified}}
+              {{^birth_country.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/birth_country.verified}}
             </tr>
             {{/birth_country}}
@@ -120,7 +147,10 @@
               <th scope="row">Passport number</th>
               <td>{{passport_number.value}}</td>
               {{#passport_number.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/passport_number.verified}}
+              {{^passport_number.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/passport_number.verified}}
             </tr>
             {{/passport_number}}
@@ -129,7 +159,10 @@
               <th scope="row">Passport expiry date</th>
               <td>{{passport_expiry_date.value}}</td>
               {{#passport_expiry_date.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/passport_expiry_date.verified}}
+              {{^passport_expiry_date.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/passport_expiry_date.verified}}
             </tr>
             {{/passport_expiry_date}}
@@ -138,7 +171,10 @@
               <th scope="row">Pass type</th>
               <td>{{pass_type.value}}</td>
               {{#pass_type.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/pass_type.verified}}
+              {{^pass_type.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/pass_type.verified}}
             </tr>
             {{/pass_type}}
@@ -147,7 +183,10 @@
               <th scope="row">Pass status</th>
               <td>{{pass_status.value}}</td>
               {{#pass_status.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/pass_status.verified}}
+              {{^pass_status.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/pass_status.verified}}
             </tr>
             {{/pass_status}}
@@ -156,7 +195,10 @@
               <th scope="row">Pass expiry date</th>
               <td>{{pass_expiry_date.value}}</td>
               {{#pass_expiry_date.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/pass_expiry_date.verified}}
+              {{^pass_expiry_date.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/pass_expiry_date.verified}}
             </tr>
             {{/pass_expiry_date}}
@@ -165,7 +207,10 @@
               <th scope="row">Mobile number</th>
               <td>{{mobile_number.value}}</td>
               {{#mobile_number.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/mobile_number.verified}}
+              {{^mobile_number.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/mobile_number.verified}}
             </tr>
             {{/mobile_number}}
@@ -174,7 +219,10 @@
               <th scope="row">Email</th>
               <td>{{email.value}}</td>
               {{#email.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/email.verified}}
+              {{^email.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/email.verified}}
             </tr>
             {{/email}}
@@ -183,7 +231,10 @@
               <th scope="row">Registered address</th>
               <td>{{registered_address.value}}</td>
               {{#registered_address.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/registered_address.verified}}
+              {{^registered_address.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/registered_address.verified}}
             </tr>
             {{/registered_address}}
@@ -192,7 +243,10 @@
               <th scope="row">Mailing address</th>
               <td>{{mailing_address.value}}</td>
               {{#mailing_address.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/mailing_address.verified}}
+              {{^mailing_address.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/mailing_address.verified}}
             </tr>
             {{/mailing_address}}
@@ -201,7 +255,10 @@
               <th scope="row">Employer name</th>
               <td>{{employer_name.value}}</td>
               {{#employer_name.verified}}
-              <td>✅</td>
+              <td>✅ Verified</td>
+              {{/employer_name.verified}}
+              {{^employer_name.verified}}
+              <td>❌ CANNOT VERIFY SIGNATURE</td>
               {{/employer_name.verified}}
             </tr>
             {{/employer_name}}
