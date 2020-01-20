@@ -7,7 +7,7 @@ You can find the documentation on sgID's APIs [here](https://app.swaggerhub.com/
 Before you begin:
 
 * Fill up and submit this [form](https://form.gov.sg/5d6642c12efdae00125764b1). 
-* In the "callback URL" field, enter "http://localhost:8080/oauth/redirect". Once you register, you will get a client ID and client secret.
+* In the "callback URL" field, enter "http://localhost:8080/callback". Once you register, you will get a client ID and client secret.
 
 Running the app:
 
@@ -18,11 +18,11 @@ cd sgID-test-app
 ```
 2. Create a ".env" file in the root directory of the folder and replace the values based on your setup. 
 ```
-ENVIRONMENT=<<INSERT ENVIRONMENT HERE>>
-CLIENT_ID=<<INSERT CLIENT ID HERE>>
-CLIENT_SECRET=<<INSERT CLIENT SECRET HERE>>
+ENVIRONMENT=<<INSERT ENVIRONMENT HERE>> E.g. prod
+CLIENT_ID=<<INSERT CLIENT ID HERE>> E.g. test-account
+CLIENT_SECRET=<<INSERT CLIENT SECRET HERE>> E.g. asdfghjkl123456789
 PORT=8080
-REDIRECT_URL=<<INSERT REDIRECT URL HERE>>
+REDIRECT_URL=<<INSERT REDIRECT URL HERE>> E.g. http://localhost:8080
 PRIVATE_KEY=<<INSERT PRIVATE KEY HERE>>
 ```
 
