@@ -79,24 +79,20 @@ app.get('/callback', async (req, res) => {
     const encrypted_user_response = await axios({
       // make a POST request
       method: 'get',
-      // to the Github authentication API, with the client ID, client secret
-      // and access token
       url: `${baseUrl}/v1/oauth/userinfo`,
       // Set the content type header, so that we get the response in JSOn
       headers: {
         authorization: `Bearer ${access_token}`
       }
     })
-
-    const { encrypted_payload, verification_key } = encrypted_user_response.data
+    const { encrypted_payload, verification_keys } = encrypted_user_response.data
+    // Decrypt data
     const decrypted = await decryptJWE(encrypted_payload, private_key)
-    verifySignatures(verification_key, decrypted)
-    // redirect the user to the welcome page, along with the access token
-    // res.send({ sub ,decrypted})
-    // res.render('sample', {"name": "Sherlynn"})
-    decrypted.sub = decodedSub
-    res.render('result', decrypted)
-    // res.redirect(`/welcome.html?decrypted=${JSON.stringify(decrypted)}`)
+    // Check signatures
+    const userData = verifyData(decrypted, verification_keys)
+    // Add sgID field
+    userData.sub = decodedSub
+    res.render('result', userData)
   } catch (error) {
     console.log(error)
     res.render('index', {
@@ -132,12 +128,41 @@ async function decodeIdToken (token, baseUrl) {
   return sub
 }
 
-function verifySignatures (userPublicKey, decrypted) {
-  for (const fieldKey in decrypted) {
-    const { value, signature } = decrypted[fieldKey]
-    const verify = crypto.createVerify('SHA256').update(JSON.stringify({ [fieldKey]: value })).end()
-    decrypted[fieldKey].verified = verify.verify(userPublicKey, signature, 'hex')
+// Verify signatures of all data sources and return data and verification status
+function verifyData (data, keys) {
+  const result = {}
+  for (const [sourceName, key] of Object.entries(keys)) {
+    result[sourceName] = verifyDataSource(data[sourceName], key)
   }
+  return result
+}
+
+// Verify signatures of a data source with public block key
+function verifyDataSource (data, key) {
+  const fields = {} // Stores fields and verification status
+  // Loop through fields
+  for (const [fieldName, field] of Object.entries(data)) {
+    try {
+      // Verify signature
+      const isValid = verifyFieldSignature(fieldName, field, key)
+      fields[fieldName] = { value: field.value, verified: isValid }
+    } catch {
+      fields[fieldName] = { value: field.value, verified: false }
+    }
+  }
+  return fields
+}
+
+// Verify signature of a field object { value, signature }
+function verifyFieldSignature (name, field, publicKey) {
+  const stringToVerify = JSON.stringify({ [name]: field.value })
+  return verifyStringSignature(stringToVerify, publicKey, field.signature)
+}
+
+// Verify string with signature
+function verifyStringSignature (data, publicKey, signature) {
+  const verify = crypto.createVerify('sha256').update(data).end()
+  return verify.verify(publicKey, signature, 'base64')
 }
 
 // Start the server on port 8080
