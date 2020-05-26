@@ -7,7 +7,6 @@ const express = require('express')
 const cons = require('consolidate')
 const axios = require('axios')
 const crypto = require('crypto')
-const jwt = require('jsonwebtoken')
 const fs = require('fs')
 const { JWE, JWK, JWS } = require('node-jose')
 
@@ -17,7 +16,7 @@ const environment = process.env.ENVIRONMENT ? process.env.ENVIRONMENT : 'develop
 const clientID = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const port = process.env.PORT
-const redirect_url = (environment == 'production') ? process.env.REDIRECT_URL : process.env.REDIRECT_URL
+const redirect_url = process.env.REDIRECT_URL
 const private_key = (environment == 'production') ? process.env.PRIVATE_KEY : fs.readFileSync('./private.pem', 'utf8')
 
 const BASE_URLS = {
@@ -107,18 +106,6 @@ app.get('/callback', async (req, res) => {
     })
   }
 })
-
-function aesRsaDecrypt (encrypted_payload, private_key) {
-  const OUTPUT_ENCODING = 'base64'
-  const SOURCE_ENCODING = 'utf8'
-  const AES_ALGORITHM = 'aes-128-ctr'
-  const { iv, encrypted, key } = JSON.parse(encrypted_payload)
-  const decryptedKey = crypto.privateDecrypt(private_key, Buffer.from(key, OUTPUT_ENCODING))
-  const decipher = crypto.createDecipheriv(AES_ALGORITHM, Buffer.from(decryptedKey, OUTPUT_ENCODING), Buffer.from(iv, OUTPUT_ENCODING))
-  let decrypted = decipher.update(encrypted, OUTPUT_ENCODING, SOURCE_ENCODING)
-  decrypted += decipher.final(SOURCE_ENCODING)
-  return JSON.parse(decrypted)
-}
 
 async function decryptJWE (encryptedPayload, privateKey) {
   try {

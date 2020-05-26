@@ -12,7 +12,6 @@
     "dotenv": "^8.1.0",
     "express": "^4.16.3",
     "hogan": "^1.0.2",
-    "jsonwebtoken": "^8.5.1",
     "mustache": "^3.0.3",
     "node-jose": "^1.1.3"
   },
