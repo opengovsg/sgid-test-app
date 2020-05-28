@@ -26,6 +26,17 @@ const BASE_URLS = {
   DEV: 'https://api-test.id.gov.sg'
 }
 
+const scopes =  encodeURIComponent([
+  'openid',
+  'myinfo.name',
+  'myinfo.sex',
+  'myinfo.race',
+  'myinfo.nationality',
+  'healthcare_corps_demo.assigned_role',
+  'healthcare_corps_demo.mask_type',
+  'healthcare_corps_demo.classes_passed',
+].join(' '))
+
 // Create a new express application and use
 // the express static middleware, to serve all files
 // inside the public directory
@@ -38,7 +49,8 @@ app.get('/', function (req, res) {
   res.render('index', {
     redirect_url,
     BASE_URLS,
-    clientID
+    clientID,
+    scopes
   })
 })
 
@@ -98,7 +110,8 @@ app.get('/callback', async (req, res) => {
     res.render('index', {
       redirect_url,
       BASE_URLS,
-      clientID
+      clientID,
+      scopes
     })
   }
 })
