@@ -28,16 +28,33 @@ const BASE_URLS = {
   DEV: 'https://api-test.id.gov.sg'
 }
 
-const scopes =  encodeURIComponent([
-  'openid',
-  'myinfo.name',
-  'myinfo.sex',
-  'myinfo.race',
-  'myinfo.nationality',
-  'healthcare_corps_demo.assigned_role',
-  'healthcare_corps_demo.mask_type',
-  'healthcare_corps_demo.classes_passed',
-].join(' '))
+const demoScopes = {
+  default: [
+    'openid',
+    'myinfo.name',
+    'myinfo.sex',
+    'myinfo.nationality',
+  ],
+  hhc: [
+    'openid',
+    'myinfo.name',
+    'myinfo.sex',
+    'myinfo.nationality',
+    'healthcare_corps_demo.assigned_role',
+    'healthcare_corps_demo.mask_type',
+    'healthcare_corps_demo.classes_passed',
+  ],
+  mom: [
+    'openid',
+    'myinfo.name',
+    'myinfo.nationality',
+    'mom_foreign_workers.gender',
+    'mom_foreign_workers.contract_id',
+    'mom_foreign_workers.current_employer'
+  ]
+}
+
+let scopes =  encodeURIComponent(demoScopes.default.join(' '))
 
 // Create a new express application and use
 // the express static middleware, to serve all files
@@ -48,6 +65,20 @@ app.set('view engine', 'html')
 app.set('views', __dirname + '/src/views')
 
 app.get('/', function (req, res) {
+  const demo = req.query.demo
+
+  switch (demo) {
+    case 'hhc':
+      scopes = encodeURIComponent(demoScopes.hcc.join(' '))
+      break;
+    case 'mom':
+      scopes = encodeURIComponent(demoScopes.mom.join(' '))
+      break;
+    default:
+      scopes = encodeURIComponent(demoScopes.default.join(' '))
+      break;
+  }
+
   res.render('index', {
     redirect_url,
     BASE_URLS,
