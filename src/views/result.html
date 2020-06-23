@@ -30,13 +30,11 @@
           </thead>
           <tbody>
             {{#each data}}
-              {{#with .}}
               <tr>
-                <th scope="row">{{this.name}}</th>
+                <th scope="row">{{this.header}}</th>
                 <td>{{this.value}}</td>
                 <td>{{this.verified}}</td>
               </tr>
-              {{/with}}
             {{/each}}
           </tbody>
         </table>
