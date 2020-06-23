@@ -43,7 +43,7 @@ const scopes =  encodeURIComponent([
 // the express static middleware, to serve all files
 // inside the public directory
 const app = express()
-app.engine('html', cons.mustache)
+app.engine('html', cons.handlebars)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/src/views')
 
