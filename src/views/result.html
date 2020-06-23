@@ -33,7 +33,13 @@
               <tr>
                 <th scope="row">{{this.header}}</th>
                 <td>{{this.value}}</td>
-                <td>{{this.verified}}</td>
+                <td>
+                  {{#if this.verified}}
+                  ✅ Verified
+                  {{else}}
+                  ❌ Cannot verify signature
+                  {{/if}}
+                </td>
               </tr>
             {{/each}}
           </tbody>
