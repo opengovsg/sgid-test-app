@@ -150,25 +150,24 @@ async function decodeIdToken (token, baseUrl) {
 function verifyData (data, keys) {
   const result = {}
   for (const [sourceName, key] of Object.entries(keys)) {
-    result[sourceName] = verifyDataSource(data[sourceName], key)
+    result[sourceName] = verifyDataSource(sourceName, data[sourceName], key)
   }
   return result
 }
 
 // Verify signatures of a data source with public block key
-function verifyDataSource (data, key) {
+function verifyDataSource (sourceName, data, key) {
   const fields = [] // Stores fields and verification status
   // Loop through fields
   for (const [fieldName, field] of Object.entries(data)) {
     const result = {
-      header: Sugar.String(key + ': ' + fieldName).titleize().valueOf(),
+      header: Sugar.String(sourceName + ': ' + fieldName).titleize().valueOf(),
       value: field.value
     }
 
     try {
       // Verify signature
-      const isValid = verifyFieldSignature(fieldName, field, key)
-      result.verified = isValid
+      result.verified = verifyFieldSignature(fieldName, field, key)
     } catch {
       result.verified = false
     }
