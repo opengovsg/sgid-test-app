@@ -9,6 +9,32 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <style>
+    body {
+        background-color: #0065c7;
+        background-image: url(https://api-staging.id.gov.sg/assets/img/skyline.png);
+        background-repeat: no-repeat;
+        background-position: center bottom;
+        background-size: contain;
+        height: 100vh;
+        width: 100vw;
+    }
+    .card{
+      background: white;
+      border-radius: 4px;
+      overflow: hidden;
+      padding: 40px 40px;
+      flex-direction: column;
+      width: 1000px;
+      max-width: 90vw;
+    }
+    .login-btn {
+      width: 100%;
+      padding: 15px;
+    }
+    #logo {
+      width: 100px;
+      margin: 0 auto;
+    }
     tr>td:nth-child(3),
     tr>th:nth-child(3) {
       text-align: center;
@@ -17,45 +43,44 @@
 </head>
 
 <body>
-  <div class="container">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-12" style="text-align: center; margin-top: 100px;">
-        <table class="table" style="text-align: left; table-layout: fixed; word-wrap: break-word">
-          <thead>
-            <tr>
-              <th scope="col">Field</th>
-              <th scope="col">Value</th>
-              <th scope="col">Verified</th>
-            </tr>
-          </thead>
-          <tbody>
-            {{#each data}}
+  <div class="container-fluid">
+    <div class="row" style="height:100vh">
+      <div class="col-12 d-flex justify-content-center align-items-center">
+        <div class="card">
+          <header class="container-fluid pb-5 text-center">  
+            <img id="logo" src="https://id.gov.sg/assets/images/logo.png" alt="SG ID"/>
+          </header>
+          <table class="table" style="text-align: left; table-layout: fixed; word-wrap: break-word">
+            <thead>
               <tr>
-                <th scope="row">{{this.header}}</th>
-                <td>{{this.value}}</td>
-                <td>
-                  {{#if this.verified}}
-                  ✅ Verified
-                  {{else}}
-                  ❌ Cannot verify signature
-                  {{/if}}
-                </td>
+                <th scope="col">Source</th>
+                <th scope="col">Field</th>
+                <th scope="col">Value</th>
+                <th scope="col" class="text-right">Verified</th>
               </tr>
-            {{/each}}
-          </tbody>
-        </table>
-
-        {{{json}}}
-      </div>
-    </div>
-    <div class="row justify-content-center align-items-center">
-      <div class="col-8" style="text-align: center;">
-        <a class="btn btn-primary" href="/" role="button">Try again</a>
+            </thead>
+            <tbody>
+              {{#each data}}
+                <tr>
+                  <th>{{this.header}}</th>
+                  <td>{{this.value}}</td>
+                  <td class="text-right">
+                    {{#if this.verified}}
+                    ✅ Verified
+                    {{else}}
+                    ❌ Cannot verify signature
+                    {{/if}}
+                  </td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+          <hr/>
+          <a class="btn btn-primary mt-3 p-3" href="/" role="button">Try again</a>
+        </div>
       </div>
     </div>
   </div>
-
-
 </body>
 
 </html>
