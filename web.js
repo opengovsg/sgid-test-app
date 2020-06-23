@@ -159,7 +159,7 @@ function verifyDataSource (data, key) {
   // Loop through fields
   for (const [fieldName, field] of Object.entries(data)) {
     fields[fieldName] = {
-      header: Sugar(fieldName).titleize().valueOf(),
+      header: Sugar.String(fieldName).titleize().valueOf(),
       value: field.value
     }
 
