@@ -9,6 +9,8 @@ const axios = require('axios')
 const crypto = require('crypto')
 const fs = require('fs')
 const { JWE, JWK, JWS } = require('node-jose')
+const { env } = require('process')
+const Sugar = require('sugar')
 
 // This is the client ID and client secret that you obtained
 // while registering the application
@@ -104,6 +106,7 @@ app.get('/callback', async (req, res) => {
     const userData = verifyData(decrypted, verification_keys)
     // Add sgID field
     userData.sub = decodedSub
+    userData.json = JSON.stringify(userData)
     res.render('result', userData)
   } catch (error) {
     console.log(error)
@@ -155,12 +158,17 @@ function verifyDataSource (data, key) {
   const fields = {} // Stores fields and verification status
   // Loop through fields
   for (const [fieldName, field] of Object.entries(data)) {
+    fields[fieldName] = {
+      header: Sugar(fieldName).titleize().valueOf(),
+      value: field.value
+    }
+
     try {
       // Verify signature
       const isValid = verifyFieldSignature(fieldName, field, key)
-      fields[fieldName] = { value: field.value, verified: isValid }
+      fields[fieldName].verified = isValid
     } catch {
-      fields[fieldName] = { value: field.value, verified: false }
+      fields[fieldName].verified = false
     }
   }
   return fields
