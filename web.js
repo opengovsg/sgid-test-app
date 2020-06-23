@@ -35,7 +35,7 @@ const demoScopes = {
     'myinfo.sex',
     'myinfo.nationality',
   ],
-  hhc: [
+  hcc: [
     'openid',
     'myinfo.name',
     'myinfo.sex',
@@ -68,7 +68,7 @@ app.get('/', function (req, res) {
   const demo = req.query.demo
 
   switch (demo) {
-    case 'hhc':
+    case 'hcc':
       scopes = encodeURIComponent(demoScopes.hcc.join(' '))
       break;
     case 'mom':
