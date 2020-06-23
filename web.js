@@ -105,7 +105,7 @@ app.get('/callback', async (req, res) => {
     // Check signatures
     const userData = verifyData(decrypted, verification_keys)
     // Add sgID field
-    userData.sub = decodedSub
+    // userData.sub = decodedSub
     userData.json = JSON.stringify(userData)
     res.render('result', {
       data: userData
@@ -157,21 +157,23 @@ function verifyData (data, keys) {
 
 // Verify signatures of a data source with public block key
 function verifyDataSource (data, key) {
-  const fields = {} // Stores fields and verification status
+  const fields = [] // Stores fields and verification status
   // Loop through fields
   for (const [fieldName, field] of Object.entries(data)) {
-    fields[fieldName] = {
-      header: Sugar.String(fieldName).titleize().valueOf(),
+    const result = {
+      header: Sugar.String(key + ': ' + fieldName).titleize().valueOf(),
       value: field.value
     }
 
     try {
       // Verify signature
       const isValid = verifyFieldSignature(fieldName, field, key)
-      fields[fieldName].verified = isValid
+      result.verified = isValid
     } catch {
-      fields[fieldName].verified = false
+      result.verified = false
     }
+
+    fields.push(result)
   }
   return fields
 }

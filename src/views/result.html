@@ -29,6 +29,7 @@
             </tr>
           </thead>
           <tbody>
+            <!--
             {{#data.sub}}
             <tr>
               <th scope="row">sgID</th>
@@ -36,15 +37,14 @@
             </tr>
             {{/data.sub}}
             {{#data.myinfo.nric_number}}
+          -->
 
             {{#each data}}
-              {{#each data[@key]}}
               <tr>
                 <th scope="row">{{this.name}}</th>
                 <td>{{this.value}}</td>
                 <td>{{this.verified}}</td>
               </tr>
-              {{/each}}
             {{/each}}
             <!--
             <tr>
