@@ -106,9 +106,9 @@ app.get('/callback', async (req, res) => {
     const userData = verifyData(decrypted, verification_keys)
     // Add sgID field
     // userData.sub = decodedSub
-    userData.json = JSON.stringify(userData)
     res.render('result', {
-      data: userData
+      data: userData,
+      json: JSON.stringify(userData)
     })
   } catch (error) {
     console.log(error)
