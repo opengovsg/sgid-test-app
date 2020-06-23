@@ -107,7 +107,9 @@ app.get('/callback', async (req, res) => {
     // Add sgID field
     userData.sub = decodedSub
     userData.json = JSON.stringify(userData)
-    res.render('result', userData)
+    res.render('result', {
+      data: userData
+    })
   } catch (error) {
     console.log(error)
     res.render('index', {

@@ -29,13 +29,24 @@
             </tr>
           </thead>
           <tbody>
-            {{#sub}}
+            {{#data.sub}}
             <tr>
               <th scope="row">sgID</th>
-              <td>{{sub}}</td>
+              <td>{{data.sub}}</td>
             </tr>
-            {{/sub}}
-            {{#myinfo.nric_number}}
+            {{/data.sub}}
+            {{#data.myinfo.nric_number}}
+
+            {{#each data}}
+              {{#each data[@key]}}
+              <tr>
+                <th scope="row">{{this.name}}</th>
+                <td>{{this.value}}</td>
+                <td>{{this.verified}}</td>
+              </tr>
+              {{/each}}
+            {{/each}}
+            <!--
             <tr>
               <th scope="row">NRIC number</th>
               <td>{{myinfo.nric_number.value}}</td>
@@ -299,6 +310,7 @@
               {{/healthcare_corps_demo.classes_passed.verified}}
             </tr>
             {{/healthcare_corps_demo.classes_passed}}
+            -->
           </tbody>
         </table>
 
