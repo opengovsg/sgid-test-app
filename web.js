@@ -148,7 +148,7 @@ async function decodeIdToken (token, baseUrl) {
 
 // Verify signatures of all data sources and return data and verification status
 function verifyData (data, keys) {
-  const result = []
+  let result = []
   for (const [sourceName, key] of Object.entries(keys)) {
     result = result.concat(verifyDataSource(sourceName, data[sourceName], key))
   }
