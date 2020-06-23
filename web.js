@@ -161,7 +161,8 @@ function verifyDataSource (sourceName, data, key) {
   // Loop through fields
   for (const [fieldName, field] of Object.entries(data)) {
     const result = {
-      header: Sugar.String(sourceName + ': ' + fieldName).titleize().valueOf(),
+      source: Sugar.String(sourceName).titleize().valueOf(),
+      header: Sugar.String(fieldName).titleize().valueOf(),
       value: field.value
     }
 
