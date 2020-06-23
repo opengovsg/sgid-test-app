@@ -150,7 +150,7 @@ async function decodeIdToken (token, baseUrl) {
 function verifyData (data, keys) {
   const result = []
   for (const [sourceName, key] of Object.entries(keys)) {
-    result.concat(verifyDataSource(sourceName, data[sourceName], key))
+    result = result.concat(verifyDataSource(sourceName, data[sourceName], key))
   }
   return result
 }
