@@ -66,7 +66,7 @@ app.set('view engine', 'html')
 app.set('views', __dirname + '/src/views')
 
 app.get('/', function (req, res) {
-  const demo = req.query.demo
+  const demo = req.query.demo || 'default'
 
   switch (demo) {
     case 'hcc':
@@ -157,6 +157,7 @@ app.get('/callback', async (req, res) => {
   } catch (error) {
     console.log(error)
     res.render('index', {
+      demo: 'default',
       redirect_url,
       BASE_URLS,
       clientID,
