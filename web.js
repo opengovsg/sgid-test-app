@@ -60,7 +60,8 @@ let scopes =  encodeURIComponent(demoScopes.default.join(' '))
 // the express static middleware, to serve all files
 // inside the public directory
 const app = express()
-app.engine('html', cons.handlebars)
+app.use(express.static('public'))
+app.engine('html', cons.ejs)
 app.set('view engine', 'html')
 app.set('views', __dirname + '/src/views')
 
@@ -80,6 +81,18 @@ app.get('/', function (req, res) {
   }
 
   res.render('index', {
+    demo,
+    redirect_url,
+    BASE_URLS,
+    clientID,
+    scopes
+  })
+})
+
+app.get('/mom', function (req, res) {
+  scopes = encodeURIComponent(demoScopes.mom.join(' '))
+  res.render('index', {
+    demo: 'mom',
     redirect_url,
     BASE_URLS,
     clientID,
