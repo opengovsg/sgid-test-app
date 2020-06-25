@@ -60,20 +60,20 @@
               </tr>
             </thead>
             <tbody>
-              {{#each data}}
+              <% data.forEach(item => { %>
                 <tr>
-                  <th>{{this.source}}</th>
-                  <th>{{this.header}}</th>
-                  <td class="text-left">{{this.value}}</td>
+                  <th><%= item.source =%></th>
+                  <th><%= item.header =%></th>
+                  <td class="text-left"><%= item.value =%></td>
                   <td class="text-right">
-                    {{#if this.verified}}
+                    <% if (item.verified) { %>
                     ✅ Verified
-                    {{else}}
+                    <% } else { %>
                     ❌ Cannot verify signature
-                    {{/if}}
+                    <% } %>
                   </td>
                 </tr>
-              {{/each}}
+              <% }) %>
             </tbody>
           </table>
           <hr/>

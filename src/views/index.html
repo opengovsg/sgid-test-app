@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>sgID Demo App</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <style>
@@ -17,6 +18,12 @@
         background-size: contain;
         height: 100vh;
         width: 100vw;
+        font-family: rubik;
+    }
+    h2{
+      display: block;
+      font-size: 1.5em;
+      font-weight: bold;
     }
     .card{
       background: white;
@@ -24,7 +31,6 @@
       overflow: hidden;
       padding: 40px 40px;
       flex-direction: column;
-      width: 400px;
       max-width: 90vw;
     }
     .login-btn {
@@ -42,24 +48,31 @@
   <div class="container">
 
     <div class="row justify-content-center align-items-center" style="height: 100vh">
-      <div class="card">
-        <header class="container-fluid pb-5 text-center">  
-          <img id="logo" src="https://id.gov.sg/assets/images/logo.png" alt="SG ID"/>
+      <div class="card px-5">
+        <header class="container-fluid pb-5 text-center">
+          <% if (demo === 'mom') { %>
+            <h2>SG Work Pass</h2>
+          <% } else { %>
+            <img id="logo" src="https://id.gov.sg/assets/images/logo.png" alt="SG ID"/>
+          <% } %>
         </header>
+
+
+
         <a class="btn btn-primary login-btn" role="button"
-          href="{{{BASE_URLS.PROD}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope={{{scopes}}}&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=PROD">
+          href="<%- BASE_URLS.PROD -%>/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=<%- clientID -%>&scope=<%- scopes -%>&redirect_uri=<%- redirect_url -%>/callback&nonce=test&state=PROD">
           Login with sgID - Production
         </a>
         <a class="btn btn-warning login-btn mt-3" role="button"
-          href="{{{BASE_URLS.STAG}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope={{{scopes}}}&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=STAG">
+          href="<%- BASE_URLS.STAG -%>/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=<%- clientID -%>&scope=<%- scopes -%>&redirect_uri=<%- redirect_url -%>/callback&nonce=test&state=STAG">
           Login with sgID - Staging
         </a>
         <a class="btn btn-info login-btn mt-3" role="button"
-          href="{{{BASE_URLS.MAST}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope={{{scopes}}}&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=MAST">
+          href="<%- BASE_URLS.MAST -%>/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=<%- clientID -%>&scope=<%- scopes -%>&redirect_uri=<%- redirect_url -%>/callback&nonce=test&state=MAST">
           Login with sgID - Master
         </a>
         <a class="btn btn-danger login-btn mt-3" role="button"
-          href="{{{BASE_URLS.DEV}}}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id={{{clientID}}}&scope={{{scopes}}}&redirect_uri={{{redirect_url}}}/callback&nonce=test&state=DEV">
+          href="<%- BASE_URLS.DEV -%>/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=<%- clientID -%>&scope=<%- scopes -%>&redirect_uri=<%- redirect_url -%>/callback&nonce=test&state=DEV">
           Login with sgID - Development
         </a>
       </div>
