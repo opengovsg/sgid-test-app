@@ -108,7 +108,7 @@ app.get('/callback', async (req, res) => {
     const baseUrl = BASE_URLS[state]
 
     const response = await axios({
-      // make a POST request
+      // Make a POST request
       method: 'post',
       // to the sgID token API, with the client ID, client secret
       // and request token
@@ -134,7 +134,7 @@ app.get('/callback', async (req, res) => {
     const decodedSub = await decodeIdToken(id_token, baseUrl)
 
     const encrypted_user_response = await axios({
-      // make a POST request
+      // Make a POST request
       method: 'get',
       url: `${baseUrl}/v1/oauth/userinfo`,
       // Set the content type header, so that we get the response in JSON
@@ -167,13 +167,13 @@ app.get('/callback', async (req, res) => {
 })
 
 async function decodeIdToken (token, baseUrl) {
-  // fetch server public key
+  // Fetch server public key
   const response = await axios.get(baseUrl + '/v1/oauth/certs')
-  // create JWK
+  // Create JWK
   const publicKey = await JWK.asKey(response.data.keys[0])
-  // decode and verify id token
+  // Decode and verify id token
   const { payload } = await JWS.createVerify(publicKey).verify(token)
-  // parse payload and retrieve sub
+  // Parse payload and retrieve sub
   const { sub } = JSON.parse(payload.toString())
   return sub
 }
@@ -192,7 +192,7 @@ async function decryptData (data, key) {
       header = titleized[0]
     } else {
       [source, header] = titleized
-}
+    }
     const result = {
       source,
       header,
@@ -208,15 +208,15 @@ async function decryptData (data, key) {
 // Decrypt JWE given key and keyFormat (json/pem)
 async function decryptJWE (jwe, key, keyFormat) {
   try {
-    // import key
+    // Import key
     const jwk = await JWK.asKey(key, keyFormat)
-    // decrypt jwe
+    // Decrypt jwe
     const result = await JWE.createDecrypt(jwk).decrypt(jwe)
-    // parse plaintext buffer to string
+    // Parse plaintext buffer to string
     return result.plaintext.toString()
   } catch (e) {
     console.error(e)
-}
+  }
 }
 
 // Start the server on port 8080
