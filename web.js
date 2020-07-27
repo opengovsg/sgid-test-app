@@ -143,11 +143,14 @@ app.get('/callback', async (req, res) => {
       }
     })
     const { data, key } = encrypted_user_response.data
+    let userData = []
+    // Decrypt data if not empty
+    if (Object.entries(data).length !== 0) {
     // Decrypt key
     const decryptedKey = await decryptJWE(key, private_key, 'pem')
-
     // Decrypt data
-    const userData = await decryptData(data, decryptedKey)
+      userData = await decryptData(data, decryptedKey)
+    }
     // Add sgID field
     // userData.sub = decodedSub
     res.render('result', {
