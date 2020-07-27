@@ -42,10 +42,6 @@
       width: 100px;
       margin: 0 auto;
     }
-    tr>td:nth-child(3),
-    tr>th:nth-child(3) {
-      text-align: center;
-    }
   </style>
 </head>
 
@@ -59,8 +55,7 @@
               <tr>
                 <th scope="col">Source</th>
                 <th scope="col">Field</th>
-                <th scope="col" class="text-left">Value</th>
-                <th scope="col" class="text-right">Verified</th>
+                <th scope="col" class="text-right">Value</th>
               </tr>
             </thead>
             <tbody>
@@ -68,14 +63,7 @@
                 <tr>
                   <th><%= item.source %></th>
                   <th><%= item.header %></th>
-                  <td class="text-left"><%= item.value %></td>
-                  <td class="text-right">
-                    <% if (item.verified) { %>
-                    ✅ Verified
-                    <% } else { %>
-                    ❌ Cannot verify signature
-                    <% } %>
-                  </td>
+                  <td class="text-right"><%= item.value %></td>
                 </tr>
               <% }); %>
             </tbody>
