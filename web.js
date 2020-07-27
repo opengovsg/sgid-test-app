@@ -33,7 +33,7 @@ const demoScopes = {
     'openid',
     'myinfo.name',
     'myinfo.sex',
-    'myinfo.nationality',
+    'myinfo.nationality'
   ],
   hcc: [
     'openid',
@@ -42,7 +42,7 @@ const demoScopes = {
     'myinfo.nationality',
     'healthcare_corps_demo.assigned_role',
     'healthcare_corps_demo.mask_type',
-    'healthcare_corps_demo.classes_passed',
+    'healthcare_corps_demo.classes_passed'
   ],
   mom: [
     'openid',
@@ -54,7 +54,7 @@ const demoScopes = {
   ]
 }
 
-let scopes =  encodeURIComponent(demoScopes.default.join(' '))
+let scopes = encodeURIComponent(demoScopes.default.join(' '))
 
 // Create a new express application and use
 // the express static middleware, to serve all files
@@ -71,13 +71,13 @@ app.get('/', function (req, res) {
   switch (demo) {
     case 'hcc':
       scopes = encodeURIComponent(demoScopes.hcc.join(' '))
-      break;
+      break
     case 'mom':
       scopes = encodeURIComponent(demoScopes.mom.join(' '))
-      break;
+      break
     default:
       scopes = encodeURIComponent(demoScopes.default.join(' '))
-      break;
+      break
   }
 
   res.render('index', {
