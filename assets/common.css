@@ -1,0 +1,42 @@
+* {
+  font-family: 'Open Sans', sans-serif;
+}
+
+span {
+  font-size: 16px;
+}
+.background {
+  background-color: #0065c7;
+  background-image: url(/assets/skyline.png);
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  height: 100vh;
+  width: 100vw;
+}
+
+@media only screen and (max-width: 900px) {
+  .background {
+    background-position: left bottom;
+    background-size: 150vh auto;
+  }
+}
+
+.container {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 40px 40px;
+  flex-direction: column;
+  max-width: 90vw;
+  width: 450px;
+}
+
+.container.large {
+  width: 1100px;
+}
+
+.logo {
+  width: 90px;
+  margin-bottom: 40px;
+}
