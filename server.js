@@ -2,14 +2,13 @@ require('dotenv').config()
 
 const scopes = process.env.SCOPES
 const clientId = process.env.CLIENT_ID
-const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
 const { fetchToken, fetchUserInfo } = require('./scripts/callback')
 
 const BASE_URLS = {
   prod: 'https://api.id.gov.sg',
   stag: 'https://api-staging.id.gov.sg',
-  dev: 'http://localhost:3000',
+  dev: 'https://api-dev.id.gov.sg',
 }
 
 const express = require('express')
@@ -25,8 +24,6 @@ app.get('/', (req, res) => {
       env
     ] = `${baseurl}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=${clientId}&scope=${scopes}&redirect_uri=${hostname}/callback&nonce=randomnonce&state=${env}`
   }
-
-  console.log(authUrl)
 
   res.render('index', { authUrl })
 })
