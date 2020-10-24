@@ -3,6 +3,8 @@ require('dotenv').config()
 const scopes = process.env.SCOPES
 const clientId = process.env.CLIENT_ID
 const hostname = process.env.HOSTNAME
+const PORT = process.env.PORT || 10000
+
 const { fetchToken, fetchUserInfo } = require('./scripts/callback')
 
 const BASE_URLS = {
@@ -40,4 +42,4 @@ app.get('/callback', async (req, res) => {
   })
 })
 
-app.listen(10000, () => console.log('Example app listening on port 10000!'))
+app.listen(PORT, () => console.log(`listening on port ${PORT}`))
