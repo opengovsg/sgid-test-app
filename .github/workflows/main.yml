@@ -61,6 +61,7 @@ jobs:
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           application_name: ${{ env.APPLICATION_NAME }}
           environment_name: ${{ env.ENVIRONMENT_NAME }}
+          version_label: reg-${{ env.VERSION_LABEL_SUFFIX }}
           region: ap-southeast-1
           version_description: ${{ github.SHA }}
           deployment_package: deploy.zip
