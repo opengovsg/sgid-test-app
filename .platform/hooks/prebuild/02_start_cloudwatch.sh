@@ -15,7 +15,7 @@ cat <<EOT >> /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 		"metrics_collected": {
 			"disk": {
 				"measurement": [
-					"used_percent",
+					"used_percent"
 				],
 				"metrics_collection_interval": 60,
 				"resources": [
