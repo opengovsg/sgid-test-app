@@ -9,21 +9,21 @@ cat <<EOT > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
   },
   "metrics": {
     "append_dimensions": {
-      "AutoScalingGroupName": "${aws:AutoScalingGroupName}",
-      "ImageId": "${aws:ImageId}",
-      "InstanceId": "${aws:InstanceId}",
-      "InstanceType": "${aws:InstanceType}"
+      "AutoScalingGroupName": "\${aws:AutoScalingGroupName}",
+      "ImageId": "\${aws:ImageId}",
+      "InstanceId": "\${aws:InstanceId}",
+      "InstanceType": "\${aws:InstanceType}"
     },
     "metrics_collected": {
       "disk": {
         "measurement": ["used_percent"],
-        "metrics_collection_interval": 30,
+        "metrics_collection_interval": 60,
         "resources": ["*"],
         "ignore_file_system_types": ["sysfs", "devtmpfs"]
       },
       "mem": {
         "measurement": ["mem_used_percent"],
-        "metrics_collection_interval": 30
+        "metrics_collection_interval": 60
       },
       "swap": {
         "measurement": ["swap_used_percent"],
