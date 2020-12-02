@@ -1,7 +1,7 @@
 #!/bin/bash
 # create cloudwatch agent config file
 echo "running 02_start_cloudwatch hook"
-cat <<EOT >> /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
+cat <<EOT > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
 {
   "agent": {
     "metrics_collection_interval": 30,
@@ -24,6 +24,10 @@ cat <<EOT >> /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
       "mem": {
         "measurement": ["mem_used_percent"],
         "metrics_collection_interval": 30
+      },
+      "swap": {
+        "measurement": ["swap_used_percent"],
+        "metrics_collection_interval": 60
       }
     }
   }
