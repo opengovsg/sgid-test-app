@@ -1,0 +1,68 @@
+name: Deploy
+
+on:
+  push:
+    branches: [master]
+
+env:
+  NODE_VERSION: 12.18.4
+  APPLICATION_NAME: sgid-demo
+  PRODUCTION_ENVIRONMENT_NAME: sgid-demo-production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout commit
+        uses: actions/checkout@v2
+
+      - name: Install node modules
+        run: npm ci
+
+      - name: Set executable perms for platform hooks
+        run: chmod -R +x .platform/hooks
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip assets scripts views server.js package*.json .platform .npmrc
+
+      - name: Get timestamp
+        uses: gerred/actions/current-time@master
+        id: current-time
+
+      - name: Run string replace
+        uses: frabert/replace-string-action@master
+        id: format-time
+        with:
+          pattern: '[:\.]+'
+          string: '${{ steps.current-time.outputs.time }}'
+          replace-with: '-'
+          flags: 'g'
+
+      - name: Set branch specific env vars
+        run: |
+          echo ${GITHUB_REF}
+          branch=${GITHUB_REF#refs/heads/}
+          echo $branch
+          echo "APPLICATION_NAME=$APPLICATION_NAME" >> $GITHUB_ENV
+          echo "ENVIRONMENT_NAME=$PRODUCTION_ENVIRONMENT_NAME" >> $GITHUB_ENV
+          echo "VERSION_LABEL_SUFFIX=prod-${{ steps.format-time.outputs.replaced }}" >> $GITHUB_ENV
+          cat $GITHUB_ENV
+
+      - name: Print branch specific env vars
+        run: |
+          echo APPLICATION_NAME=$APPLICATION_NAME
+          echo ENVIRONMENT_NAME=$ENVIRONMENT_NAME
+          echo VERSION_LABEL_SUFFIX=$VERSION_LABEL_SUFFIX
+
+      - name: Deploy Demo Server
+        uses: einaregilsson/beanstalk-deploy@v14
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: ${{ env.APPLICATION_NAME }}
+          environment_name: ${{ env.ENVIRONMENT_NAME }}
+          version_label: demo-${{ env.VERSION_LABEL_SUFFIX }}
+          region: ap-southeast-1
+          version_description: ${{ github.SHA }}
+          deployment_package: deploy.zip
+          wait_for_deployment: false
