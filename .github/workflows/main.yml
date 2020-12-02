@@ -22,8 +22,11 @@ jobs:
       - name: Install node modules
         run: npm ci
 
+      - name: Set executable perms for platform hooks
+        run: chmod -R +x .platform/**/*.sh
+
       - name: Generate deployment package
-        run: zip -r deploy.zip package*.json . .npmrc
+        run: zip -r deploy.zip assets scripts views server.js package*.json .platform .npmrc
 
       - name: Get timestamp
         uses: gerred/actions/current-time@master
