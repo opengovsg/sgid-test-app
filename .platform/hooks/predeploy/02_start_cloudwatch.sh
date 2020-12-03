@@ -19,7 +19,7 @@ cat <<EOT > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
         "measurement": ["used_percent"],
         "metrics_collection_interval": 60,
         "resources": ["*"],
-        "ignore_file_system_types": ["sysfs", "devtmpfs"]
+        "ignore_file_system_types": ["sysfs", "devtmpfs", "tmpfs"]
       },
       "mem": {
         "measurement": ["mem_used_percent"],
