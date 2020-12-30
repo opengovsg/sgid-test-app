@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 10000
 const overrideDev = process.env.OVERRIDE_DEV
 
 const { fetchToken, fetchUserInfo } = require('./scripts/callback')
+const middlewares = require('./middlewares')
 
 const BASE_URLS = {
   prod: 'https://api.id.gov.sg',
@@ -17,10 +18,11 @@ const BASE_URLS = {
 const express = require('express')
 const app = express()
 
+app.use(middlewares.csp())
 app.use('/assets', express.static('assets'))
 app.set('view engine', 'ejs')
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   const authUrl = {}
   for (const [env, baseurl] of Object.entries(BASE_URLS)) {
     authUrl[
