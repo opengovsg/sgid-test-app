@@ -23,7 +23,7 @@ jobs:
         run: chmod -R +x .platform/hooks
 
       - name: Generate deployment package
-        run: zip -r deploy.zip assets scripts views server.js package*.json .platform .npmrc
+        run: zip -r deploy.zip assets middlewares scripts views server.js package*.json .platform .npmrc
 
       - name: Get timestamp
         uses: opengovsg/action-current-time@master
