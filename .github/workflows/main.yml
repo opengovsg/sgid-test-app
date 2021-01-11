@@ -26,11 +26,11 @@ jobs:
         run: zip -r deploy.zip assets scripts views server.js package*.json .platform .npmrc
 
       - name: Get timestamp
-        uses: gerred/actions/current-time@master
+        uses: opengovsg/actions/current-time@master
         id: current-time
 
       - name: Run string replace
-        uses: frabert/replace-string-action@master
+        uses: opengovsg/replace-string-action@master
         id: format-time
         with:
           pattern: '[:\.]+'
@@ -55,7 +55,7 @@ jobs:
           echo VERSION_LABEL_SUFFIX=$VERSION_LABEL_SUFFIX
 
       - name: Deploy Demo Server
-        uses: einaregilsson/beanstalk-deploy@v14
+        uses: opengovsg/beanstalk-deploy@v14
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
