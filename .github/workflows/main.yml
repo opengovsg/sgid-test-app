@@ -26,7 +26,7 @@ jobs:
         run: zip -r deploy.zip assets scripts views server.js package*.json .platform .npmrc
 
       - name: Get timestamp
-        uses: opengovsg/actions/current-time@master
+        uses: opengovsg/action-current-time@master
         id: current-time
 
       - name: Run string replace
