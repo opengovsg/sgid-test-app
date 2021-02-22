@@ -16,21 +16,21 @@ span {
   width: 100vw;
 }
 
+.container {
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  padding: 5vh 25px;
+  flex-direction: column;
+  max-width: 90vw;
+  width: 450px;
+}
+
 @media only screen and (max-width: 900px) {
   .background {
     background-position: left bottom;
     background-size: 150vh auto;
   }
-}
-
-.container {
-  background: white;
-  border-radius: 4px;
-  overflow: hidden;
-  padding: 5vh 5vw;
-  flex-direction: column;
-  max-width: 90vw;
-  width: 450px;
 }
 
 .container.large {
