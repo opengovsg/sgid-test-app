@@ -1,8 +1,11 @@
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
+const jwkKid = process.env.JWK_KID
 const fetch = require('node-fetch')
+const jwt = require('jsonwebtoken')
 const jwtDecode = require('jwt-decode')
+const jwksRsa = require('jwks-rsa')
 const { JWK, JWE } = require('node-jose')
 
 async function fetchToken(baseUrl, code) {
@@ -24,7 +27,7 @@ async function fetchToken(baseUrl, code) {
     }),
   })
   const { access_token, id_token } = await response.json()
-  const sub = decodeIdToken(id_token)
+  const sub = await decodeIdToken(id_token, baseUrl)
   return { sub, accessToken: access_token }
 }
 
@@ -45,11 +48,20 @@ async function fetchUserInfo(baseUrl, accessToken) {
   return { sub, data: decrypted }
 }
 
-function decodeIdToken(token) {
+async function decodeIdToken(token, baseUrl) {
   // TODO verify id_token
-  // parse payload and retrieve sub
-  const idToken = jwtDecode(token)
-  return idToken.sub
+  try {
+    const client = jwksRsa({
+      jwksUri: `${baseUrl}/.well-known/jwks.json`,
+    })
+    const validSigningKey = await client.getSigningKeyAsync(jwkKid)
+
+    // parse payload and retrieve sub
+    const { sub } = jwtDecode(token)
+    return sub
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 async function decryptData(encKey, block) {
