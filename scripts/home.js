@@ -6,11 +6,11 @@ const config = require('../lib/config')
 
 /**
  * Main controller function to generate the home page
- * 
- * @param {*} _req 
- * @param {*} res 
+ *
+ * @param {*} _req
+ * @param {*} res
  */
-function index (_req, res) {
+function index(_req, res) {
   const authUrl = {}
   for (const [env, baseurl] of Object.entries(config.baseUrls)) {
     authUrl[

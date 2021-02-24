@@ -7,9 +7,9 @@ const config = require('../lib/config')
 
 /**
  * Main controller function to generate the callback page
- * 
- * @param {*} req 
- * @param {*} res 
+ *
+ * @param {*} req
+ * @param {*} res
  */
 async function index(req, res) {
   try {
@@ -17,7 +17,11 @@ async function index(req, res) {
     const baseurl = config.baseUrls[state]
 
     const { accessToken } = await fetchToken(baseurl, code)
-    const { sub, data } = await fetchUserInfo(baseurl, accessToken, process.env.PRIVATE_KEY)
+    const { sub, data } = await fetchUserInfo(
+      baseurl,
+      accessToken,
+      process.env.PRIVATE_KEY
+    )
 
     res.render('callback', {
       data: [['sgID', sub], ...data],
@@ -30,7 +34,7 @@ async function index(req, res) {
 
 /**
  * Fetches the token from the oauth endpoint
- * 
+ *
  * @param {string} baseUrl
  * @param {string} code
  */
@@ -39,7 +43,8 @@ async function fetchToken(baseUrl, code) {
     return await sgid.fetchToken(
       baseUrl,
       clientId,
-      clientSecret,`${hostname}/callback`,
+      clientSecret,
+      `${hostname}/callback`,
       code
     )
   } catch (error) {
@@ -50,7 +55,7 @@ async function fetchToken(baseUrl, code) {
 
 /**
  * Fetches user info
- * 
+ *
  * @param {string} baseUrl
  * @param {string} accessToken
  * @param {string} privateKeyPem
@@ -58,10 +63,14 @@ async function fetchToken(baseUrl, code) {
  */
 async function fetchUserInfo(baseUrl, accessToken, privateKeyPem) {
   try {
-    const { sub, data } = await sgid.fetchUserInfo(baseUrl, accessToken, privateKeyPem)
+    const { sub, data } = await sgid.fetchUserInfo(
+      baseUrl,
+      accessToken,
+      privateKeyPem
+    )
     return {
       sub,
-      data: formatData(data)
+      data: formatData(data),
     }
   } catch (error) {
     console.error(`Error in fetchUserInfo: ${error.message}`)
@@ -72,13 +81,13 @@ async function fetchUserInfo(baseUrl, accessToken, privateKeyPem) {
 /**
  * Formats the data into an array of arrays,
  * specifically for the display on the frontend
- * 
- * @param {object} result 
+ *
+ * @param {object} result
  * @returns {array}
  */
 function formatData(result) {
   const formattedResult = []
-  
+
   for (const [key, value] of Object.entries(result)) {
     formattedResult.push([prettifyKey(key), value])
   }
@@ -89,8 +98,8 @@ function formatData(result) {
 /**
  * Converts a key string from dot-delimited into uppercase
  * for frontend display
- * 
- * @param {string} key 
+ *
+ * @param {string} key
  * @returns {string}
  */
 function prettifyKey(key) {
