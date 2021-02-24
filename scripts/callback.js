@@ -1,7 +1,6 @@
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
-const kid = process.env.JWK_KID
 
 const sgid = require('../lib/sgid')
 const config = require('../lib/config')
@@ -41,8 +40,7 @@ async function fetchToken(baseUrl, code) {
       baseUrl,
       clientId,
       clientSecret,`${hostname}/callback`,
-      code,
-      kid
+      code
     )
   } catch (error) {
     console.error(`Error in fetchToken: ${error.message}`)
