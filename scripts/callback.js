@@ -25,7 +25,7 @@ async function index(req, res) {
     })
   } catch (error) {
     console.log(error)
-    res.render('error', { error })
+    res.status(500).render('error', { error })
   }
 }
 
