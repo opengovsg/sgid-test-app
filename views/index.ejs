@@ -12,57 +12,48 @@
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" type="text/css" href="/assets/common.css" />
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
   </head>
 
   <body class="d-flex justify-content-center align-items-center p-4 background">
     <div class="container d-flex align-items-center">
-      <img src="/assets/logo.png" class="logo" />
+      <div class="d-flex flex-row justify-content-center mb-5">
+        <img src="/assets/logo.png" class="logo" />
+        <img src="/assets/singpass.svg" class="singpass-logo" />
+      </div>
       <div class="w-100">
         <a
-          class="btn btn-primary btn-lg btn-block"
+          class="btn btn-primary btn-lg btn-block py-4"
           id="login-btn-prod"
           role="button"
           href="<%- authUrl.prod -%>"
         >
-          Login with
-          <img
-            src="/assets/logo-white.png"
-            class="d-inline-block login-environment-logo"
-          />
+          Login with Singpass app
           <br />
-          <span class="font-weight-light">Production</span>
         </a>
-        <a
-          class="btn btn-warning btn-lg btn-block mt-4"
-          id="login-btn-stag"
-          href="<%- authUrl.stag -%>"
-        >
-          Login with
-          <img
-            src="/assets/logo.png"
-            class="d-inline-block login-environment-logo"
-          />
-          <br />
-          <span class="font-weight-light">Staging</span>
-        </a>
-        <a
-          class="btn btn-success btn-lg btn-block mt-4 ph-2"
-          id="login-btn-dev"
-          href="<%- authUrl.dev -%>"
-        >
-          Login with
-          <img
-            src="/assets/logo-white.png"
-            class="d-inline-block login-environment-logo"
-          />
-          <br />
-          <span class="font-weight-light">Development</span>
-        </a>
+        <hr class="mt-4" />
+        <div class="d-flex flex-row justify-content-center">
+          <a
+            class="btn btn-link py-0 sec-btn"
+            id="login-btn-stag"
+            href="<%- authUrl.stag -%>"
+          >
+            Staging
+          </a>
+          <a
+            class="ml-3 btn btn-link text-dark py-0 sec-btn"
+            id="login-btn-dev"
+            href="<%- authUrl.dev -%>"
+          >
+            Development
+          </a>
+        </div>
       </div>
     </div>
   </body>
