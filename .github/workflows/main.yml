@@ -19,8 +19,13 @@ jobs:
       - name: Install node modules
         run: npm ci
 
-      - name: Set executable perms for platform hooks
-        run: chmod -R +x .platform/hooks
+      # To force hooks to run even during config deployment
+      # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-linux-extend.html
+      - name: Copy platform hooks into confighooks
+        run: mkdir .platform/confighooks && cp -r .platform/hooks/. .platform/confighooks
+
+      - name: Set executable perms for platform hooks and confighooks
+        run: chmod -R +x .platform/hooks .platform/confighooks
 
       - name: Generate deployment package
         run: zip -r deploy.zip assets middlewares scripts views server.js package*.json .platform .npmrc
