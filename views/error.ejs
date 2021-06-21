@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>sgID Demo App</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" type="text/css" href="/assets/common.css" />
+
+  <body class="d-flex justify-content-center align-items-center p-4 background">
+    <div class="container d-flex align-items-center large">
+      <img src="/assets/logo.png" class="logo" />
+      <h2><b>Please try again</b></h2>
+      <br/>
+      <p>Oops. We encountered an error.</p>
+      <p>Error description: <%- error.message %></p>
+      <a class="btn btn-primary btn-block mt-4" href="/" role="button"
+        >Try again</a
+      >
+    </div>
+  </body>
+</html>

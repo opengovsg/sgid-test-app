@@ -1,83 +1,111 @@
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
-const fetch = require('node-fetch')
-const jwtDecode = require('jwt-decode')
-const { JWK, JWE } = require('node-jose')
 
-async function fetchToken(baseUrl, code) {
-  const response = await fetch(`${baseUrl}/v1/oauth/token`, {
-    // make a POST request
-    method: 'POST',
-    cache: 'no-cache',
-    // Set the content type header, so that we get the response in JSON
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    },
-    body: JSON.stringify({
-      client_id: clientId,
-      client_secret: clientSecret,
-      grant_type: 'authorization_code',
-      redirect_uri: hostname + '/callback',
-      code,
-    }),
-  })
-  const { access_token, id_token } = await response.json()
-  const sub = decodeIdToken(id_token)
-  return { sub, accessToken: access_token }
-}
+const sgid = require('../lib/sgid')
+const config = require('../lib/config')
 
-async function fetchUserInfo(baseUrl, accessToken) {
-  const response = await fetch(`${baseUrl}/v1/oauth/userinfo`, {
-    method: 'GET',
-    cache: 'no-cache',
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
-  const { sub, key, data } = await response.json()
-  let decrypted = []
-  if (data && key) {
-    decrypted = await decryptData(key, data)
-  }
-  return { sub, data: decrypted }
-}
-
-function decodeIdToken(token) {
-  // TODO verify id_token
-  // parse payload and retrieve sub
-  const idToken = jwtDecode(token)
-  return idToken.sub
-}
-
-async function decryptData(encKey, block) {
-  const result = []
+/**
+ * Main controller function to generate the callback page
+ *
+ * @param {*} req
+ * @param {*} res
+ */
+async function index(req, res) {
   try {
-    // Decrypted encKey to get symmetric key
-    const privateKey = await JWK.asKey(process.env.PRIVATE_KEY, 'pem')
-    const key = await JWE.createDecrypt(privateKey).decrypt(encKey)
+    const { code, state } = req.query
+    const baseurl = config.baseUrls[state]
 
-    const decryptedKey = await JWK.asKey(key.plaintext, 'json')
-    // Decrypt myinfo data
-    for (const [key, value] of Object.entries(block)) {
-      const { plaintext } = await JWE.createDecrypt(decryptedKey).decrypt(value)
-      result.push([prettifyKey(key), plaintext.toString('ascii')])
-    }
-    return result
-  } catch (e) {
-    console.error(e)
+    const { accessToken } = await fetchToken(baseurl, code)
+    const { sub, data } = await fetchUserInfo(
+      baseurl,
+      accessToken,
+      process.env.PRIVATE_KEY
+    )
+
+    res.render('callback', {
+      data: [['sgID', sub], ...data],
+    })
+  } catch (error) {
+    console.log(error)
+    res.status(500).render('error', { error })
   }
 }
 
+/**
+ * Fetches the token from the oauth endpoint
+ *
+ * @param {string} baseUrl
+ * @param {string} code
+ */
+async function fetchToken(baseUrl, code) {
+  try {
+    return await sgid.fetchToken(
+      baseUrl,
+      clientId,
+      clientSecret,
+      `${hostname}/callback`,
+      code
+    )
+  } catch (error) {
+    console.error(`Error in fetchToken: ${error.message}`)
+    throw error
+  }
+}
+
+/**
+ * Fetches user info
+ *
+ * @param {string} baseUrl
+ * @param {string} accessToken
+ * @param {string} privateKeyPem
+ * @return {object} { sub: string, data: array }
+ */
+async function fetchUserInfo(baseUrl, accessToken, privateKeyPem) {
+  try {
+    const { sub, data } = await sgid.fetchUserInfo(
+      baseUrl,
+      accessToken,
+      privateKeyPem
+    )
+    return {
+      sub,
+      data: formatData(data),
+    }
+  } catch (error) {
+    console.error(`Error in fetchUserInfo: ${error.message}`)
+    throw error
+  }
+}
+
+/**
+ * Formats the data into an array of arrays,
+ * specifically for the display on the frontend
+ *
+ * @param {object} result
+ * @returns {array}
+ */
+function formatData(result) {
+  const formattedResult = []
+
+  for (const [key, value] of Object.entries(result)) {
+    formattedResult.push([prettifyKey(key), value])
+  }
+
+  return formattedResult
+}
+
+/**
+ * Converts a key string from dot-delimited into uppercase
+ * for frontend display
+ *
+ * @param {string} key
+ * @returns {string}
+ */
 function prettifyKey(key) {
   let prettified = key.split('.')[1]
   prettified = prettified.replace(/_/g, ' ')
   return prettified.toUpperCase()
 }
 
-module.exports = {
-  fetchToken,
-  fetchUserInfo,
-}
+module.exports = index
