@@ -1,5 +1,5 @@
 * {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 span {
@@ -38,10 +38,19 @@ span {
 }
 
 .logo {
-  width: 90px;
-  margin-bottom: 40px;
+  width: 70px;
+}
+
+.singpass-logo {
+  width: 150px;
+  margin-left: 30px;
+  margin-top: 10px;
 }
 
 .login-environment-logo {
   height: 25px;
+}
+
+.sec-btn {
+  font-size: 13px;
 }
