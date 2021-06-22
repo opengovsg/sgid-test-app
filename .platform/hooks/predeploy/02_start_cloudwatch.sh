@@ -1,4 +1,6 @@
 #!/bin/bash
+EB_ENV="$(/opt/elasticbeanstalk/bin/get-config container -k environment_name)"
+
 # create cloudwatch agent config file
 echo "running 02_start_cloudwatch hook"
 cat <<EOT > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
@@ -12,7 +14,8 @@ cat <<EOT > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
       "AutoScalingGroupName": "\${aws:AutoScalingGroupName}",
       "ImageId": "\${aws:ImageId}",
       "InstanceId": "\${aws:InstanceId}",
-      "InstanceType": "\${aws:InstanceType}"
+      "InstanceType": "\${aws:InstanceType}",
+      "Environment": "$EB_ENV"
     },
     "metrics_collected": {
       "disk": {
@@ -29,7 +32,8 @@ cat <<EOT > /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json
         "measurement": ["swap_used_percent"],
         "metrics_collection_interval": 60
       }
-    }
+    },
+    "aggregation_dimensions" : [["Environment"]]
   }
 }
 EOT
