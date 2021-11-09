@@ -13,9 +13,9 @@ const config = require('../lib/config')
 function index(_req, res) {
   const authUrl = {}
   for (const [env, baseurl] of Object.entries(config.baseUrls)) {
-    authUrl[
-      env
-    ] = `${baseurl}/v1/oauth/authorize?response_type=code&purpose=For%20testing%20purposes&client_id=${clientId}&scope=${scopes}&redirect_uri=${hostname}/callback&nonce=randomnonce&state=${env}`
+    authUrl[env] = baseurl
+      ? `${baseurl}/v1/oauth/authorize?response_type=code&client_id=${clientId}&scope=${scopes}&redirect_uri=${hostname}/callback&nonce=randomnonce&state=${env}`
+      : undefined
   }
 
   res.render('index', { authUrl })
