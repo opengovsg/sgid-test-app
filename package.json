@@ -12,7 +12,7 @@
     "express": "4.17.1",
     "helmet": "4.6.0",
     "jsonwebtoken": "8.5.1",
-    "node-fetch": "2.6.2",
+    "node-fetch": "2.6.6",
     "node-jose": "2.0.0"
   },
   "devDependencies": {
