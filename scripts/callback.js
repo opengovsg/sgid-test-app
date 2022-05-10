@@ -2,7 +2,7 @@ const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
 
-const sgid = require('../lib/sgid')
+const { clients } = require('../lib/sgid')
 const config = require('../lib/config')
 
 /**
@@ -16,65 +16,22 @@ async function index(req, res) {
     const { code, state } = req.query
     const baseurl = config.baseUrls[state]
 
-    const { accessToken } = await fetchToken(baseurl, code)
-    const { sub, data } = await fetchUserInfo(
-      baseurl,
-      accessToken,
-      process.env.PRIVATE_KEY
-    )
+    const client = clients[state]
+
+    if (!client) {
+      console.error(`Invalid state: ${state}`)
+      return res.status(500).json({ error: 'Invalid state' })
+    }
+
+    const { accessToken } = await client.callback(code, null)
+    const { sub, data } = await client.userinfo(accessToken)
 
     res.render('callback', {
-      data: [['sgID', sub], ...data],
+      data: [['sgID', sub], ...formatData(data)],
     })
   } catch (error) {
     console.log(error)
     res.status(500).render('error', { error })
-  }
-}
-
-/**
- * Fetches the token from the oauth endpoint
- *
- * @param {string} baseUrl
- * @param {string} code
- */
-async function fetchToken(baseUrl, code) {
-  try {
-    return await sgid.fetchToken(
-      baseUrl,
-      clientId,
-      clientSecret,
-      `${hostname}/callback`,
-      code
-    )
-  } catch (error) {
-    console.error(`Error in fetchToken: ${error.message}`)
-    throw error
-  }
-}
-
-/**
- * Fetches user info
- *
- * @param {string} baseUrl
- * @param {string} accessToken
- * @param {string} privateKeyPem
- * @return {object} { sub: string, data: array }
- */
-async function fetchUserInfo(baseUrl, accessToken, privateKeyPem) {
-  try {
-    const { sub, data } = await sgid.fetchUserInfo(
-      baseUrl,
-      accessToken,
-      privateKeyPem
-    )
-    return {
-      sub,
-      data: formatData(data),
-    }
-  } catch (error) {
-    console.error(`Error in fetchUserInfo: ${error.message}`)
-    throw error
   }
 }
 
