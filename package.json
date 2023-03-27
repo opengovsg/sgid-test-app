@@ -7,7 +7,6 @@
     "node": "16.16"
   },
   "dependencies": {
-    "@opengovsg/sgid-client": "^1.0.4",
     "dotenv": "8.6.0",
     "ejs": "3.1.7",
     "express": "4.17.1",
