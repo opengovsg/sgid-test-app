@@ -1,8 +1,9 @@
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
+const privateKey = process.env.PRIVATE_KEY
 
-const sgid = require('../lib/sgid')
+const SgidService = require('../lib/sgid-client.service')
 const config = require('../lib/config')
 
 /**
@@ -16,8 +17,18 @@ async function index(req, res) {
     const { code, state } = req.query
     const baseurl = config.baseUrls[state]
 
-    const { accessToken } = await fetchToken(baseurl, code)
+    const sgidService = new SgidService(
+      baseurl,
+      clientId,
+      clientSecret,
+      `${hostname}/callback`,
+      privateKey,
+    )
+
+    const { accessToken } = await fetchToken(sgidService, code)
+
     const { sub, data } = await fetchUserInfo(
+      sgidService,
       baseurl,
       accessToken,
       process.env.PRIVATE_KEY
@@ -38,15 +49,9 @@ async function index(req, res) {
  * @param {string} baseUrl
  * @param {string} code
  */
-async function fetchToken(baseUrl, code) {
+async function fetchToken(sgidService, code) {
   try {
-    return await sgid.fetchToken(
-      baseUrl,
-      clientId,
-      clientSecret,
-      `${hostname}/callback`,
-      code
-    )
+    return await sgidService.fetchToken(code)
   } catch (error) {
     console.error(`Error in fetchToken: ${error.message}`)
     throw error
@@ -61,12 +66,10 @@ async function fetchToken(baseUrl, code) {
  * @param {string} privateKeyPem
  * @return {object} { sub: string, data: array }
  */
-async function fetchUserInfo(baseUrl, accessToken, privateKeyPem) {
+async function fetchUserInfo(sgidService, baseUrl, accessToken, privateKeyPem) {
   try {
-    const { sub, data } = await sgid.fetchUserInfo(
-      baseUrl,
+    const { sub, data } = await sgidService.fetchUserInfo(
       accessToken,
-      privateKeyPem
     )
     return {
       sub,
