@@ -1,7 +1,7 @@
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
-const redirectUri = process.env.OVERRIDE_DEV
+const privateKey = process.env.PRIVATE_KEY
 
 const SgidService = require('../lib/sgid-client.service')
 const config = require('../lib/config')
@@ -22,12 +22,11 @@ async function index(req, res) {
       clientId,
       clientSecret,
       `${hostname}/callback`,
+      privateKey,
     )
 
     const { accessToken } = await fetchToken(sgidService, code)
-    // const { accessToken } = await fetchToken(baseurl, code)
 
-    console.log('(callback) accessToken: ', accessToken)
     const { sub, data } = await fetchUserInfo(
       sgidService,
       baseurl,
@@ -72,7 +71,6 @@ async function fetchUserInfo(sgidService, baseUrl, accessToken, privateKeyPem) {
     const { sub, data } = await sgidService.fetchUserInfo(
       baseUrl,
       accessToken,
-      privateKeyPem
     )
     return {
       sub,
