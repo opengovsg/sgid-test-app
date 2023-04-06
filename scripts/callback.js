@@ -25,14 +25,8 @@ async function index(req, res) {
       privateKey,
     )
 
-    const { accessToken } = await sgidService.fetchToken(
-      code,
-    )
-
-    const { sub, data } = await sgidService.fetchUserInfo(
-      accessToken,
-    )
-
+    const { accessToken } = await sgidService.fetchToken(code)
+    const { sub, data } = await sgidService.fetchUserInfo(accessToken)
     const formattedData = formatData(data)
 
     res.render('callback', {
