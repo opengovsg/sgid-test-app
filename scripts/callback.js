@@ -25,59 +25,22 @@ async function index(req, res) {
       privateKey,
     )
 
-    const { accessToken } = await fetchToken(sgidService, code)
-
-    const { sub, data } = await fetchUserInfo(
-      sgidService,
-      baseurl,
-      accessToken,
-      process.env.PRIVATE_KEY
+    const { accessToken } = await sgidService.fetchToken(
+      code,
     )
 
-    res.render('callback', {
-      data: [['sgID', sub], ...data],
-    })
-  } catch (error) {
-    console.log(error)
-    res.status(500).render('error', { error })
-  }
-}
-
-/**
- * Fetches the token from the oauth endpoint
- *
- * @param {string} baseUrl
- * @param {string} code
- */
-async function fetchToken(sgidService, code) {
-  try {
-    return await sgidService.fetchToken(code)
-  } catch (error) {
-    console.error(`Error in fetchToken: ${error.message}`)
-    throw error
-  }
-}
-
-/**
- * Fetches user info
- *
- * @param {string} baseUrl
- * @param {string} accessToken
- * @param {string} privateKeyPem
- * @return {object} { sub: string, data: array }
- */
-async function fetchUserInfo(sgidService, baseUrl, accessToken, privateKeyPem) {
-  try {
     const { sub, data } = await sgidService.fetchUserInfo(
       accessToken,
     )
-    return {
-      sub,
-      data: formatData(data),
-    }
+
+    const formattedData = formatData(data)
+
+    res.render('callback', {
+      data: [['sgID', sub], ...formattedData],
+    })
   } catch (error) {
-    console.error(`Error in fetchUserInfo: ${error.message}`)
-    throw error
+    console.error(error)
+    res.status(500).render('error', { error })
   }
 }
 
