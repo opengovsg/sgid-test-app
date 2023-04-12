@@ -1,8 +1,9 @@
 const clientId = process.env.CLIENT_ID
 const clientSecret = process.env.CLIENT_SECRET
 const hostname = process.env.HOSTNAME
+const privateKey = process.env.PRIVATE_KEY
 
-const sgid = require('../lib/sgid')
+const SgidService = require('../lib/sgid-client.service')
 const config = require('../lib/config')
 
 /**
@@ -16,65 +17,24 @@ async function index(req, res) {
     const { code, state } = req.query
     const baseurl = config.baseUrls[state]
 
-    const { accessToken } = await fetchToken(baseurl, code)
-    const { sub, data } = await fetchUserInfo(
+    const sgidService = new SgidService(
       baseurl,
-      accessToken,
-      process.env.PRIVATE_KEY
-    )
-
-    res.render('callback', {
-      data: [['sgID', sub], ...data],
-    })
-  } catch (error) {
-    console.log(error)
-    res.status(500).render('error', { error })
-  }
-}
-
-/**
- * Fetches the token from the oauth endpoint
- *
- * @param {string} baseUrl
- * @param {string} code
- */
-async function fetchToken(baseUrl, code) {
-  try {
-    return await sgid.fetchToken(
-      baseUrl,
       clientId,
       clientSecret,
       `${hostname}/callback`,
-      code
+      privateKey,
     )
-  } catch (error) {
-    console.error(`Error in fetchToken: ${error.message}`)
-    throw error
-  }
-}
 
-/**
- * Fetches user info
- *
- * @param {string} baseUrl
- * @param {string} accessToken
- * @param {string} privateKeyPem
- * @return {object} { sub: string, data: array }
- */
-async function fetchUserInfo(baseUrl, accessToken, privateKeyPem) {
-  try {
-    const { sub, data } = await sgid.fetchUserInfo(
-      baseUrl,
-      accessToken,
-      privateKeyPem
-    )
-    return {
-      sub,
-      data: formatData(data),
-    }
+    const { accessToken } = await sgidService.fetchToken(code)
+    const { sub, data } = await sgidService.fetchUserInfo(accessToken)
+    const formattedData = formatData(data)
+
+    res.render('callback', {
+      data: [['sgID', sub], ...formattedData],
+    })
   } catch (error) {
-    console.error(`Error in fetchUserInfo: ${error.message}`)
-    throw error
+    console.error(error)
+    res.status(500).render('error', { error })
   }
 }
 
