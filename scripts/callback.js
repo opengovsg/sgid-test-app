@@ -1,10 +1,4 @@
-const clientId = process.env.CLIENT_ID
-const clientSecret = process.env.CLIENT_SECRET
-const hostname = process.env.HOSTNAME
-const privateKey = process.env.PRIVATE_KEY
-
-const SgidService = require('../lib/sgid-client.service')
-const config = require('../lib/config')
+const {sgidClient, randomnonce} = require('../lib/sgid-client-singleton')
 
 /**
  * Main controller function to generate the callback page
@@ -15,18 +9,8 @@ const config = require('../lib/config')
 async function index(req, res) {
   try {
     const { code, state } = req.query
-    const baseurl = config.baseUrls[state]
-
-    const sgidService = new SgidService(
-      baseurl,
-      clientId,
-      clientSecret,
-      `${hostname}/callback`,
-      privateKey,
-    )
-
-    const { accessToken } = await sgidService.fetchToken(code)
-    const { sub, data } = await sgidService.fetchUserInfo(accessToken)
+	const { accessToken } = await sgidClient[state].callback(code,randomnonce)
+    const { sub, data } = await sgidClient[state].userinfo(accessToken)
     const formattedData = formatData(data)
 
     res.render('callback', {
