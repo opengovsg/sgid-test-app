@@ -7,7 +7,7 @@ on:
 env:
   NODE_VERSION: 16.16
   APPLICATION_NAME: sgid-demo
-  PRODUCTION_ENVIRONMENT_NAME: sgid-demo-production
+  PRODUCTION_ENVIRONMENT_NAME: sgid-demo-node16-production
 
 jobs:
   deploy:
