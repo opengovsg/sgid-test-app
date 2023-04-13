@@ -16,12 +16,14 @@ jobs:
       - name: Checkout commit
         uses: actions/checkout@v2
 
-      - name: Install node modules
-        run: npm ci
+      - name: Set specified node version
         uses: actions/setup-node@v3
         with:
           # Necessary because of npm strict-engine flag
           node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install node modules
+        run: npm ci
 
       # To force hooks to run even during config deployment
       # https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/platforms-linux-extend.html
