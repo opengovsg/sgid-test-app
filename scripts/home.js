@@ -1,5 +1,9 @@
 const config = require('../lib/config')
-const {sgidClient, scopes, randomnonce} = require('../lib/sgid-client-singleton')
+const {
+  sgidService,
+  scopes,
+  randomnonce,
+} = require('../lib/sgid-client.service')
 /**
  * Main controller function to generate the home page
  *
@@ -8,10 +12,14 @@ const {sgidClient, scopes, randomnonce} = require('../lib/sgid-client-singleton'
  */
 function index(_req, res) {
   const authUrl = {}
-  for (const [env, ] of Object.entries(config.baseUrls)) {
-	authUrl[env] = sgidClient[env].authorizationUrl(env,scopes,randomnonce).url
-  }
-
+  Object.keys(config.baseUrls).forEach((env) => {
+    authUrl[env] = sgidService[env].authorizationUrl(
+      env,
+      scopes,
+      randomnonce
+    ).url
+  })
+  console.log({ authUrl })
   res.render('index', { authUrl })
 }
 

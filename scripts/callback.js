@@ -1,4 +1,4 @@
-const { sgidClient, randomnonce } = require('../lib/sgid-client-singleton')
+const { sgidService, randomnonce } = require('../lib/sgid-client.service')
 const { formatData } = require('../lib/utils')
 
 /**
@@ -8,19 +8,19 @@ const { formatData } = require('../lib/utils')
  * @param {*} res
  */
 async function index(req, res) {
-	try {
-		const { code, state } = req.query
-		const { accessToken } = await sgidClient[state].callback(code, randomnonce)
-		const { sub, data } = await sgidClient[state].userinfo(accessToken)
-		const formattedData = formatData(data)
+  try {
+    const { code, state } = req.query
+    const { accessToken } = await sgidService[state].callback(code, randomnonce)
+    const { sub, data } = await sgidService[state].userinfo(accessToken)
+    const formattedData = formatData(data)
 
-		res.render('callback', {
-			data: [['sgID', sub], ...formattedData],
-		})
-	} catch (error) {
-		console.error(error)
-		res.status(500).render('error', { error })
-	}
+    res.render('callback', {
+      data: [['sgID', sub], ...formattedData],
+    })
+  } catch (error) {
+    console.error(error)
+    res.status(500).render('error', { error })
+  }
 }
 
 module.exports = index
