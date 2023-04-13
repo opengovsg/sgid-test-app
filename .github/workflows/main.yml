@@ -15,6 +15,12 @@ jobs:
     steps:
       - name: Checkout commit
         uses: actions/checkout@v2
+      
+      - name: Set specified node version
+        uses: actions/setup-node@v3
+        with:
+          # Necessary because of npm strict-engine flag
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install node modules
         run: npm ci
