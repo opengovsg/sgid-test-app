@@ -7,7 +7,7 @@ const { formatData } = require('../lib/utils')
  * @param {*} req
  * @param {*} res
  */
-async function index(req, res) {
+async function home(req, res) {
   try {
     const { code, state } = req.query
     const { accessToken } = await sgidService[state].callback(code, randomnonce)
@@ -23,4 +23,4 @@ async function index(req, res) {
   }
 }
 
-module.exports = index
+module.exports = home

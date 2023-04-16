@@ -19,7 +19,6 @@ function index(_req, res) {
       randomnonce
     ).url
   })
-  console.log({ authUrl })
   res.render('index', { authUrl })
 }
 
