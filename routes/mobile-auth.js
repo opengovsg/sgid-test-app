@@ -40,7 +40,7 @@ router.get('/callback', async (req, res) => {
       'base64'
     )
     return res.redirect(
-      `${process.env.MOBILE_APP_BUNDLE_ID}callback?userInfo=${encodedData}&sub=${encodedSub}`
+      `${process.env.MOBILE_APP_BUNDLE_ID}callback?userInfo=${encodedData}&sub=${encodedSub}&channel-name=main&runtime-version=exposdk:48.0.0`
     )
   } catch (error) {
     console.error(error)

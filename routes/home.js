@@ -4,6 +4,7 @@ const {
   scopes,
   randomnonce,
 } = require('../lib/sgid-client.service')
+
 /**
  * Main controller function to generate the home page
  *
