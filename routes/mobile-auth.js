@@ -39,6 +39,9 @@ router.get('/callback', async (req, res) => {
     const encodedData = Buffer.from(JSON.stringify(formatData(data))).toString(
       'base64'
     )
+
+    // Native app redirection can be done by accessing appScheme://
+    // Since app is published through Expo, the appScheme is exp:// with queryParams channel-name and runtime-version required
     return res.redirect(
       `${process.env.MOBILE_APP_BUNDLE_ID}callback?userInfo=${encodedData}&sub=${encodedSub}&channel-name=main&runtime-version=exposdk:48.0.0`
     )
