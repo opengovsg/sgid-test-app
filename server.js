@@ -2,14 +2,18 @@ require('dotenv').config()
 
 const PORT = process.env.PORT || 10000
 
-const home = require('./scripts/home')
-const callback = require('./scripts/callback')
+const express = require('express')
+
+const auth = require('./routes/mobile')
+const home = require('./routes/home')
+const callback = require('./routes/callback')
 const { csp } = require('./middlewares')
 
-const express = require('express')
 const app = express()
 
 app.use(csp())
+
+app.use('/mobile', auth) // mobile use-case
 app.use('/assets', express.static('assets'))
 app.set('view engine', 'ejs')
 
