@@ -3,6 +3,7 @@ require('dotenv').config()
 const PORT = process.env.PORT || 10000
 
 const express = require('express')
+const cookieParser = require('cookie-parser')
 
 const auth = require('./routes/mobile')
 const home = require('./routes/home')
@@ -12,6 +13,7 @@ const { csp } = require('./middlewares')
 const app = express()
 
 app.use(csp())
+app.use(cookieParser())
 
 app.use('/mobile', auth) // mobile use-case
 app.use('/assets', express.static('assets'))
