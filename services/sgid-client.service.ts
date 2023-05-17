@@ -93,7 +93,7 @@ Object.keys(BASE_URLS).forEach((env) => {
   sgidService[env] = new SgidService({
     clientId: process.env.CLIENT_ID as string,
     clientSecret: process.env.CLIENT_SECRET as string,
-    privateKey: process.env.PRIVATE_KEY?.replace(/\\n/gm, '\n') as string,
+    privateKey: process.env.PRIVATE_KEY as string,
     redirectUri: process.env.HOSTNAME + '/callback',
     hostname: BASE_URLS[env as keyof typeof BASE_URLS] as string,
   })

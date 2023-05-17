@@ -24,6 +24,6 @@ export const home = (req: express.Request, res: express.Response) => {
     ).url
   })
 
-  res.cookie('sessionId', sessionId)
+  res.cookie('sessionId', sessionId, { httpOnly: true })
   res.render('index', { authUrl })
 }
