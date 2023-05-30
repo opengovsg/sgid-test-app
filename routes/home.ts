@@ -4,6 +4,7 @@ import { BASE_URLS, RANDOMNONCE, SCOPES } from '../config'
 import { generatePkcePair } from '@opengovsg/sgid-client'
 import { sgidService } from '../services/sgid-client.service'
 import { nodeCache } from '../services/node-cache.service'
+import { SESSION_COOKIE_NAME } from '../constants'
 
 /**
  * Main controller function to generate the home page
@@ -24,6 +25,6 @@ export const home = (req: express.Request, res: express.Response) => {
     ).url
   })
 
-  res.cookie('sessionId', sessionId, { httpOnly: true })
+  res.cookie(SESSION_COOKIE_NAME, sessionId, { httpOnly: true })
   res.render('index', { authUrl })
 }
