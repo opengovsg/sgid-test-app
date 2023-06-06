@@ -1,7 +1,7 @@
 const BASE_URLS = {
   prod: 'https://api.id.gov.sg',
   stag: 'https://api-stg.id.gov.sg',
-  dev: process.env.OVERRIDE_DEV || '',
+  dev: process.env.OVERRIDE_DEV || 'http://localhost:3000',
 }
 const PORT = process.env.PORT || 10000
 const RANDOMNONCE = 'randomnonce'
