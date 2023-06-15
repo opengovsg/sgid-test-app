@@ -34,19 +34,16 @@ class SgidService {
   authorizationUrl(
     env: string,
     scopes: string | string[],
-    nonce: string,
     codeChallenge: string
-  ): { url: string } {
-    if (!env || !scopes || !nonce)
-      throw Error(`env, scopes, nonce cannot be empty`)
+  ): { url: string; nonce?: string } {
+    if (!env || !scopes) throw Error(`env, scopes cannot be empty`)
     try {
-      const { url } = this.sgidClient.authorizationUrl({
+      const { url, nonce } = this.sgidClient.authorizationUrl({
         state: env,
         scope: scopes,
-        nonce,
         codeChallenge,
       })
-      return { url }
+      return { url, nonce }
     } catch (e) {
       console.error(e)
       throw new Error('Error retrieving url via sgid-client')
