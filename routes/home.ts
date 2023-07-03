@@ -1,6 +1,6 @@
 import express from 'express'
 import { v4 as uuidV4 } from 'uuid'
-import { BASE_URLS, SCOPES } from '../config'
+import { BASE_URLS, SCOPES, DEV_AND_STAGING_SCOPES } from '../config'
 import { generatePkcePair } from '@opengovsg/sgid-client'
 import { sgidService } from '../services/sgid-client.service'
 import { nodeCache } from '../services/node-cache.service'
@@ -20,7 +20,7 @@ export const home = (req: express.Request, res: express.Response) => {
   Object.keys(BASE_URLS).forEach((env) => {
     const { url, nonce } = sgidService[env].authorizationUrl(
       env,
-      SCOPES,
+      env === 'prod' ? SCOPES : DEV_AND_STAGING_SCOPES,
       codeChallenge
     )
     authUrl[env] = url
