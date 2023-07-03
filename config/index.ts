@@ -5,3 +5,5 @@ export const BASE_URLS = {
 }
 export const PORT = process.env.PORT || 10000
 export const SCOPES = process.env.SCOPES || 'openid'
+export const DEV_AND_STAGING_SCOPES =
+  process.env.DEV_AND_STAGING_SCOPES || 'openid'
