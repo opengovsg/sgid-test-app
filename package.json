@@ -11,12 +11,12 @@
     "cookie-parser": "^1.4.6",
     "dotenv": "8.6.0",
     "ejs": "3.1.7",
-    "express": "4.17.1",
+    "express": "4.17.3",
     "helmet": "4.6.0",
     "jsonwebtoken": "8.5.1",
     "node-cache": "^5.1.2",
     "node-fetch": "2.6.7",
-    "node-jose": "2.1.1",
+    "node-jose": "2.2.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
