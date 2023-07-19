@@ -10,7 +10,7 @@
     "@opengovsg/sgid-client": "^2.0.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "8.6.0",
-    "ejs": "3.1.7",
+    "ejs": "3.1.9",
     "express": "^4.18.2",
     "helmet": "4.6.0",
     "jsonwebtoken": "^9.0.1",
