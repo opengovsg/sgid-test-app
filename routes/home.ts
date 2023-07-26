@@ -17,15 +17,17 @@ export const home = (req: express.Request, res: express.Response) => {
 
   const authUrl: { [index: string]: string } = {}
   const authNonce: { [index: string]: string } = {}
-  Object.keys(BASE_URLS).forEach((env) => {
-    const { url, nonce } = sgidService[env].authorizationUrl(
-      env,
-      env === 'prod' ? SCOPES : DEV_AND_STAGING_SCOPES,
-      codeChallenge
-    )
-    authUrl[env] = url
-    if (nonce) {
-      authNonce[env] = nonce
+  Object.entries(BASE_URLS).forEach(([env, value]) => {
+    if (value) {
+      const { url, nonce } = sgidService[env].authorizationUrl(
+        env,
+        env === 'prod' ? SCOPES : DEV_AND_STAGING_SCOPES,
+        codeChallenge
+      )
+      authUrl[env] = url
+      if (nonce) {
+        authNonce[env] = nonce
+      }
     }
   })
 

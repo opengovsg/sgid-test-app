@@ -1,6 +1,6 @@
 {
   "name": "sgid-test-app",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "This is an example node application that implements sgID's OAuth2 API.",
   "main": "dist/index.js",
   "engines": {
