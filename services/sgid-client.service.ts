@@ -1,4 +1,7 @@
-import SgidClient, { generatePkcePair } from '@opengovsg/sgid-client'
+import SgidClient, {
+  RulesParams,
+  RulesReturn,
+} from '@opengovsg/sgid-client'
 import { BASE_URLS } from '../config'
 
 interface SgidServiceOption {
@@ -11,6 +14,7 @@ interface SgidServiceOption {
 
 class SgidService {
   private sgidClient: SgidClient
+  clientId: string
 
   constructor({
     clientId,
@@ -26,6 +30,7 @@ class SgidService {
       redirectUri: redirectUri,
       hostname: hostname,
     })
+    this.clientId = clientId
   }
 
   /**
@@ -78,6 +83,23 @@ class SgidService {
     } catch (e) {
       console.error(e)
       throw new Error('Error retrieving user info via sgid-client')
+    }
+  }
+
+  async rules(rulesParams: RulesParams): Promise<RulesReturn> {
+    const { clientId, accessToken, ruleNames, userInfoData } = rulesParams
+
+    if (!clientId) throw new Error(`clientId cannot be empty`)
+    if (!accessToken) throw new Error(`accessToken cannot be empty`)
+    if (!ruleNames) throw new Error(`ruleNames cannot be empty`)
+    if (!userInfoData) throw new Error(`userInfoData cannot be empty`)
+
+    try {
+      const data = await this.sgidClient.rules(rulesParams)
+      return data
+    } catch (e) {
+      console.error(e)
+      throw new Error('Error retrieving rule-based fields')
     }
   }
 }

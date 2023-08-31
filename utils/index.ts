@@ -21,3 +21,7 @@ export const prettifyKey = (key: string): string => {
   prettified = prettified.replace(/_/g, ' ')
   return prettified.toUpperCase()
 }
+
+export const prettifyRuleName = (ruleName: string): string => {
+  return ruleName.replace(/_/g, ' ').toUpperCase()
+}
