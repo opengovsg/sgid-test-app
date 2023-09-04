@@ -25,7 +25,7 @@ export const home = (req: express.Request, res: express.Response) => {
         codeChallenge
       )
       if (env.includes('passkey')) {
-        authUrl[env] = url?.replace('/v2/oauth/', '/v2/oauth/passkey/')
+        authUrl[env] = url.replace('/v2/oauth/', '/v2/oauth/passkey/')
       } else {
         authUrl[env] = url
       }
