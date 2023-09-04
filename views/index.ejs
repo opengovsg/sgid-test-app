@@ -56,6 +56,27 @@
           </a>
           <% } %>
         </div>
+		<hr class="mt-3" />
+		<div class="d-flex flex-row justify-content-center">
+			<% if (authUrl.passkeyProd) { %>
+			<a
+			  class="btn btn-link py-0 sec-btn"
+			  id="login-btn-stag"
+			  href="<%- authUrl.passkeyProd -%>"
+			>
+			  Passkeys
+			</a>
+			<% } %>
+			<% if (authUrl.passkeyStaging) { %>
+			<a
+			  class="ml-3 btn btn-link py-0 sec-btn"
+			  id="login-btn-stag"
+			  href="<%- authUrl.passkeyStaging -%>"
+			>
+			  Passkey (Staging)
+			</a>
+			<% } %>
+		  </div>
       </div>
     </div>
   </body>
