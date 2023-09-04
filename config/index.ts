@@ -4,6 +4,7 @@ export const BASE_URLS = {
   dev: process.env.OVERRIDE_DEV,
   passkeyProd: 'https://api.id.gov.sg',
   passkeyStaging: 'https://api-stg.id.gov.sg',
+  passkeyDev: process.env.OVERRIDE_DEV,
 }
 export const PORT = process.env.PORT || 10000
 export const SCOPES = process.env.SCOPES || 'openid'

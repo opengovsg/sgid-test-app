@@ -76,6 +76,15 @@
 			  Passkeys (Staging)
 			</a>
 			<% } %>
+			<% if (authUrl.passkeyDev) { %>
+				<a
+				  class="ml-3 btn btn-link py-0 sec-btn"
+				  id="login-btn-stag"
+				  href="<%- authUrl.passkeyDev -%>"
+				>
+				  Passkeys (Dev)
+				</a>
+				<% } %>
 		  </div>
       </div>
     </div>
