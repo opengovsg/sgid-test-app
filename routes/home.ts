@@ -24,7 +24,11 @@ export const home = (req: express.Request, res: express.Response) => {
         env === 'prod' ? SCOPES : DEV_AND_STAGING_SCOPES,
         codeChallenge
       )
-      authUrl[env] = url
+      if (env.includes('passkey')) {
+        authUrl[env] = url.replace('/v2/oauth/', '/v2/oauth/next/')
+      } else {
+        authUrl[env] = url
+      }
       if (nonce) {
         authNonce[env] = nonce
       }
