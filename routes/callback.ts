@@ -4,7 +4,7 @@ import { formatData, prettifyRuleName } from '../utils'
 import { nodeCache } from '../services/node-cache.service'
 import { SESSION_COOKIE_NAME } from '../constants'
 import { IAuthSession } from '../types'
-import { SGID_RULE_NAMES } from '../config'
+import { SGID_RULE_IDS } from '../config'
 
 /**
  * Main controller function to generate the callback page
@@ -28,14 +28,12 @@ export const callback = async (req: express.Request, res: express.Response) => {
     )
     const formattedUserInfoData = formatData(userInfoData)
 
-    const clientId = sgidService[String(state)].clientId
     const rulesData = await sgidService[String(state)].rules({
-      clientId,
       accessToken,
-      ruleNames: SGID_RULE_NAMES,
+      ruleIds: SGID_RULE_IDS,
       userInfoData,
     })
-    const formattedRulesData = rulesData.map(data => [prettifyRuleName(data.ruleName), data.output])
+    const formattedRulesData = rulesData.map(data => [prettifyRuleName(data.ruleId), data.output])
 
     res.render('callback', {
       data: [['sgID', sub], ...formattedUserInfoData, ...formattedRulesData],

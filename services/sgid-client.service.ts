@@ -10,6 +10,7 @@ interface SgidServiceOption {
   privateKey: string
   redirectUri: string
   hostname: string
+  rulesEngineEndpoint: string | undefined
 }
 
 class SgidService {
@@ -22,6 +23,7 @@ class SgidService {
     privateKey,
     redirectUri,
     hostname,
+    rulesEngineEndpoint
   }: SgidServiceOption) {
     this.sgidClient = new SgidClient({
       clientId: clientId,
@@ -29,6 +31,7 @@ class SgidService {
       privateKey: privateKey,
       redirectUri: redirectUri,
       hostname: hostname,
+      rulesEngineEndpoint: rulesEngineEndpoint
     })
     this.clientId = clientId
   }
@@ -87,11 +90,10 @@ class SgidService {
   }
 
   async rules(rulesParams: RulesParams): Promise<RulesReturn> {
-    const { clientId, accessToken, ruleNames, userInfoData } = rulesParams
+    const { accessToken, ruleIds, userInfoData } = rulesParams
 
-    if (!clientId) throw new Error(`clientId cannot be empty`)
     if (!accessToken) throw new Error(`accessToken cannot be empty`)
-    if (!ruleNames) throw new Error(`ruleNames cannot be empty`)
+    if (!ruleIds) throw new Error(`ruleIds cannot be empty`)
     if (!userInfoData) throw new Error(`userInfoData cannot be empty`)
 
     try {
@@ -115,5 +117,6 @@ Object.keys(BASE_URLS).forEach((env) => {
     privateKey: process.env.PRIVATE_KEY as string,
     redirectUri: process.env.HOSTNAME + '/callback',
     hostname: BASE_URLS[env as keyof typeof BASE_URLS] as string,
+    rulesEngineEndpoint: env === 'dev' ? process.env.RULES_ENGINE_DEV_ENDPOINT : undefined
   })
 })
