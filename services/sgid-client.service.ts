@@ -1,4 +1,7 @@
-import SgidClient, { generatePkcePair } from '@opengovsg/sgid-client'
+import SgidClient, {
+  RulesParams,
+  RulesReturn,
+} from '@opengovsg/sgid-client'
 import { BASE_URLS } from '../config'
 
 interface SgidServiceOption {
@@ -7,10 +10,12 @@ interface SgidServiceOption {
   privateKey: string
   redirectUri: string
   hostname: string
+  rulesEngineEndpoint: string | undefined
 }
 
 class SgidService {
   private sgidClient: SgidClient
+  clientId: string
 
   constructor({
     clientId,
@@ -18,6 +23,7 @@ class SgidService {
     privateKey,
     redirectUri,
     hostname,
+    rulesEngineEndpoint
   }: SgidServiceOption) {
     this.sgidClient = new SgidClient({
       clientId: clientId,
@@ -25,7 +31,9 @@ class SgidService {
       privateKey: privateKey,
       redirectUri: redirectUri,
       hostname: hostname,
+      rulesEngineEndpoint: rulesEngineEndpoint
     })
+    this.clientId = clientId
   }
 
   /**
@@ -80,6 +88,22 @@ class SgidService {
       throw new Error('Error retrieving user info via sgid-client')
     }
   }
+
+  async rules(rulesParams: RulesParams): Promise<RulesReturn> {
+    const { accessToken, ruleIds, userInfoData } = rulesParams
+
+    if (!accessToken) throw new Error(`accessToken cannot be empty`)
+    if (!ruleIds) throw new Error(`ruleIds cannot be empty`)
+    if (!userInfoData) throw new Error(`userInfoData cannot be empty`)
+
+    try {
+      const data = await this.sgidClient.rules(rulesParams)
+      return data
+    } catch (e) {
+      console.error(e)
+      throw new Error('Error retrieving rule-based fields')
+    }
+  }
 }
 
 // Initialised the sgidService object with the different environments
@@ -93,5 +117,6 @@ Object.keys(BASE_URLS).forEach((env) => {
     privateKey: process.env.PRIVATE_KEY as string,
     redirectUri: process.env.HOSTNAME + '/callback',
     hostname: BASE_URLS[env as keyof typeof BASE_URLS] as string,
+    rulesEngineEndpoint: env === 'dev' ? process.env.RULES_ENGINE_DEV_ENDPOINT : undefined
   })
 })
