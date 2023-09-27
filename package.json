@@ -7,7 +7,7 @@
     "node": ">=16.16"
   },
   "dependencies": {
-    "@opengovsg/sgid-client": "^2.0.0",
+    "@opengovsg/sgid-client": "^2.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "8.6.0",
     "ejs": "3.1.7",
