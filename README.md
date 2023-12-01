@@ -39,3 +39,14 @@ Instructions for both actions can be found in the README doc in the sgid-server 
    </div>
 1. The "Login with Singpass App" interacts with the production sgid-server, whereas the "Staging" and "Development" links interact with the staging server and the local server respectively.
 1. To test the sgid-test-app further, utilize sgid-mock-extension (https://github.com/datagovsg/sgid-mock-extension).
+
+## Outbound proxy
+The app will use an outbound http/https proxy if the following environment variables are defined:
+
+   - GLOBAL\_AGENT\_HTTP\_PROXY
+   - GLOBAL\_AGENT\_HTTPS\_PROXY
+   - http\_proxy
+   - https\_proxy
+   - HTTP\_PROXY
+   - HTTPS\_PROXY
+
