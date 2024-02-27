@@ -3,7 +3,6 @@ export const BASE_URLS = {
   stag: 'https://api-stg.id.gov.sg',
   dev: process.env.OVERRIDE_DEV,
   passkeyProd: 'https://api.id.gov.sg',
-  passkeyStaging: 'https://api-stg.id.gov.sg',
   passkeyDev: process.env.OVERRIDE_DEV,
 }
 export const PORT = process.env.PORT || 10000
