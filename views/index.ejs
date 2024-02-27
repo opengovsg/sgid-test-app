@@ -56,35 +56,25 @@
           </a>
           <% } %>
         </div>
-		<div class="d-flex flex-row justify-content-center mt-3">
-			<% if (authUrl.passkeyProd) { %>
-			<a
-			  class="btn btn-link py-0 sec-btn"
-			  id="login-btn-stag"
-			  href="<%- authUrl.passkeyProd -%>"
-			>
-			  Passkeys
-			</a>
-			<% } %>
-			<% if (authUrl.passkeyStaging) { %>
-			<a
-			  class="ml-3 btn btn-link py-0 sec-btn"
-			  id="login-btn-stag"
-			  href="<%- authUrl.passkeyStaging -%>"
-			>
-			  Passkeys (Staging)
-			</a>
-			<% } %>
-			<% if (authUrl.passkeyDev) { %>
-				<a
-				  class="ml-3 btn btn-link py-0 sec-btn"
-				  id="login-btn-stag"
-				  href="<%- authUrl.passkeyDev -%>"
-				>
-				  Passkeys (Dev)
-				</a>
-				<% } %>
-		  </div>
+        <div class="d-flex flex-row justify-content-center mt-3">
+          <% if (authUrl.passkeyProd) { %>
+          <a
+            class="btn btn-link py-0 sec-btn"
+            id="login-btn-stag"
+            href="<%- authUrl.passkeyProd -%>"
+          >
+            Passkeys
+          </a>
+          <% } %> <% if (authUrl.passkeyDev) { %>
+          <a
+            class="ml-3 btn btn-link py-0 sec-btn"
+            id="login-btn-stag"
+            href="<%- authUrl.passkeyDev -%>"
+          >
+            Passkeys (Dev)
+          </a>
+          <% } %>
+        </div>
       </div>
     </div>
   </body>
