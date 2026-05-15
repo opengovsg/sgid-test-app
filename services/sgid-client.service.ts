@@ -1,5 +1,6 @@
 import SgidClient, { generatePkcePair } from '@opengovsg/sgid-client'
 import { BASE_URLS } from '../config'
+import { normalisePem } from '../utils/pem'
 
 interface SgidServiceOption {
   clientId: string
@@ -85,12 +86,14 @@ class SgidService {
 // Initialised the sgidService object with the different environments
 export const sgidService: { [index: string]: SgidService } = {}
 
+const privateKey = normalisePem(process.env.PRIVATE_KEY)
+
 Object.keys(BASE_URLS).forEach((env) => {
   // Initialise the sgidService object with the different environments
   sgidService[env] = new SgidService({
     clientId: process.env.CLIENT_ID as string,
     clientSecret: process.env.CLIENT_SECRET as string,
-    privateKey: process.env.PRIVATE_KEY as string,
+    privateKey,
     redirectUri: process.env.HOSTNAME + '/callback',
     hostname: BASE_URLS[env as keyof typeof BASE_URLS] as string,
   })

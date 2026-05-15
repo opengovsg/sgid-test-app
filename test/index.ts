@@ -3,6 +3,7 @@
 // so importing each suite here is enough.
 
 import './utils.test'
+import './utils.pem.test'
 import './routes/profile.test'
 import './routes/home.test'
 import './routes/callback.test'
