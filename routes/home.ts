@@ -37,6 +37,11 @@ export const home = (req: express.Request, res: express.Response) => {
 
   nodeCache.set<IAuthSession>(sessionId, { codeVerifier, authNonce })
 
-  res.cookie(SESSION_COOKIE_NAME, sessionId, { httpOnly: true })
+  const isProd = process.env.NODE_ENV === 'production'
+  res.cookie(SESSION_COOKIE_NAME, sessionId, {
+    httpOnly: true,
+    secure: isProd,
+    sameSite: 'lax',
+  })
   res.render('index', { authUrl })
 }

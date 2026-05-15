@@ -10,11 +10,7 @@ const csp = helmet({
       frameAncestors: ["'self'"],
       imgSrc: ["'self'", 'data:'],
       objectSrc: ["'none'"],
-      styleSrc: [
-        "'self'",
-        'https://fonts.googleapis.com',
-        'https://stackpath.bootstrapcdn.com',
-      ],
+      styleSrc: ["'self'", 'https://fonts.googleapis.com'],
       scriptSrcAttr: ["'none'"],
       scriptSrc: ["'self'"],
       upgradeInsecureRequests: [],
