@@ -41,28 +41,18 @@ jobs:
       - name: Generate deployment package
         run: zip -r deploy.zip . -x node_modules/\* .git/\*
 
-      - name: Get timestamp
-        uses: opengovsg/action-current-time@master
-        id: current-time
-
-      - name: Run string replace
-        uses: opengovsg/replace-string-action@master
-        id: format-time
-        with:
-          pattern: '[:\.]+'
-          string: '${{ steps.current-time.outputs.time }}'
-          replace-with: '-'
-          flags: 'g'
-
       - name: Set branch specific env vars
         run: |
-          echo ${GITHUB_REF}
-          branch=${GITHUB_REF#refs/heads/}
-          echo $branch
-          echo "APPLICATION_NAME=$APPLICATION_NAME" >> $GITHUB_ENV
-          echo "ENVIRONMENT_NAME=$PRODUCTION_ENVIRONMENT_NAME" >> $GITHUB_ENV
-          echo "VERSION_LABEL_SUFFIX=prod-${{ steps.format-time.outputs.replaced }}" >> $GITHUB_ENV
-          cat $GITHUB_ENV
+          echo "${GITHUB_REF}"
+          branch="${GITHUB_REF#refs/heads/}"
+          echo "$branch"
+          # Sanitised timestamp (no ':' or '.') for the EB version label.
+          # Replaces deprecated opengovsg/action-current-time + opengovsg/replace-string-action.
+          timestamp=$(date -u +'%Y-%m-%dT%H-%M-%SZ')
+          echo "APPLICATION_NAME=$APPLICATION_NAME" >> "$GITHUB_ENV"
+          echo "ENVIRONMENT_NAME=$PRODUCTION_ENVIRONMENT_NAME" >> "$GITHUB_ENV"
+          echo "VERSION_LABEL_SUFFIX=prod-$timestamp" >> "$GITHUB_ENV"
+          cat "$GITHUB_ENV"
 
       - name: Print branch specific env vars
         run: |
@@ -71,7 +61,9 @@ jobs:
           echo VERSION_LABEL_SUFFIX=$VERSION_LABEL_SUFFIX
 
       - name: Deploy Demo Server
-        uses: opengovsg/beanstalk-deploy@master
+        # Pinned to a SHA so a future deletion/rename of the org fork can't
+        # break the deploy the way the two replaced actions just did.
+        uses: opengovsg/beanstalk-deploy@6f594ded1b0a22c5e5aa1088e7c58dc5816c92ea
         with:
           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
