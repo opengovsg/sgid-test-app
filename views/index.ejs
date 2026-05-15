@@ -3,9 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>sgID Demo</title>
+    <title>sgID Demo · Sign in with Singpass</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="sgID demo app — sign in with Singpass." />
+    <meta
+      name="description"
+      content="sgID demo — securely sign in with Singpass to view your verified data."
+    />
+    <meta name="theme-color" content="#f4333d" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,66 +21,122 @@
   </head>
 
   <body>
-    <main class="shell">
-      <section class="card" aria-labelledby="page-title">
-        <div class="brand">
-          <img src="/assets/logo.png" alt="sgID" class="logo" />
-          <img src="/assets/singpass.svg" alt="Singpass" class="singpass" />
+    <div class="gov-bar" role="region" aria-label="Government notice">
+      <div class="gov-bar-inner">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path
+            d="M12 2 4 5v6c0 5 3.4 9.5 8 11 4.6-1.5 8-6 8-11V5l-8-3Z"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <span>An official demo by Open Government Products, GovTech Singapore.</span>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-brand">
+          <img src="/assets/logo.png" alt="" class="logo" />
+          <div class="brand-text">
+            <span class="brand-name">sgID</span>
+            <span class="brand-sub">Singapore Government ID</span>
+          </div>
         </div>
+        <div class="site-meta" aria-hidden="true">Demo · Relying party</div>
+      </div>
+    </header>
 
-        <p class="eyebrow">sgID Demo</p>
-        <h1 id="page-title" class="title">Sign in to continue</h1>
+    <main class="page">
+      <div class="shell">
+        <section class="card" aria-labelledby="page-title">
+          <div class="card-accent" aria-hidden="true"></div>
+          <div class="card-body">
+            <div class="lockup">
+              <img src="/assets/logo.png" alt="sgID" class="logo" />
+              <span class="divider-dot" aria-hidden="true"></span>
+              <img src="/assets/singpass.svg" alt="Singpass" class="singpass" />
+            </div>
 
-        <a
-          class="btn btn-primary"
-          id="login-btn-prod"
-          role="button"
-          href="<%- authUrl.prod -%>"
-        >
-          Login with Singpass app
-        </a>
+            <p class="eyebrow">sgID Demo</p>
+            <h1 id="page-title" class="title">Sign in to continue</h1>
+            <p class="subtitle">
+              Use your Singpass to securely verify your identity.
+            </p>
 
-        <div class="divider" role="separator">or try another environment</div>
+            <a
+              class="btn btn-singpass"
+              id="login-btn-prod"
+              role="button"
+              href="<%- authUrl.prod -%>"
+            >
+              <span class="sp-mark" aria-hidden="true">s</span>
+              <span>Login with Singpass app</span>
+            </a>
 
-        <div class="env-row">
-          <a
-            class="env-chip"
-            id="login-btn-stag"
-            href="<%- authUrl.stag -%>"
-          >
-            Staging
-          </a>
-          <% if (authUrl.dev) { %>
-          <a
-            class="env-chip"
-            id="login-btn-dev"
-            href="<%- authUrl.dev -%>"
-          >
-            Development
-          </a>
-          <% } %>
-          <% if (authUrl.passkeyProd) { %>
-          <a
-            class="env-chip"
-            id="login-btn-passkey-prod"
-            href="<%- authUrl.passkeyProd -%>"
-          >
-            Passkeys
-          </a>
-          <% } %>
-          <% if (authUrl.passkeyDev) { %>
-          <a
-            class="env-chip"
-            id="login-btn-passkey-dev"
-            href="<%- authUrl.passkeyDev -%>"
-          >
-            Passkeys (Dev)
-          </a>
-          <% } %>
-        </div>
+            <div class="divider" role="separator">or try another environment</div>
 
-        <p class="footer-note">Secure sign-in powered by Singpass.</p>
-      </section>
+            <div class="env-row">
+              <a class="env-chip" id="login-btn-stag" href="<%- authUrl.stag -%>">
+                Staging
+              </a>
+              <% if (authUrl.dev) { %>
+              <a class="env-chip" id="login-btn-dev" href="<%- authUrl.dev -%>">
+                Development
+              </a>
+              <% } %>
+              <% if (authUrl.passkeyProd) { %>
+              <a
+                class="env-chip"
+                id="login-btn-passkey-prod"
+                href="<%- authUrl.passkeyProd -%>"
+              >
+                Passkeys
+              </a>
+              <% } %>
+              <% if (authUrl.passkeyDev) { %>
+              <a
+                class="env-chip"
+                id="login-btn-passkey-dev"
+                href="<%- authUrl.passkeyDev -%>"
+              >
+                Passkeys (Dev)
+              </a>
+              <% } %>
+            </div>
+
+            <div class="trust" role="note">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 2 4 5v6c0 5 3.4 9.5 8 11 4.6-1.5 8-6 8-11V5l-8-3Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="m9 12 2 2 4-4"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+              <span>Secure sign-in powered by Singpass</span>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <span>© <%= new Date().getFullYear() %> Government of Singapore. Built by Open Government Products.</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://id.gov.sg" rel="noopener">About sgID</a>
+          <a href="https://www.singpass.gov.sg" rel="noopener">About Singpass</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>

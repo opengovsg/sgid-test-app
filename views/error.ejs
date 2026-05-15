@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sgID Demo · Error</title>
+    <title>sgID Demo · Something went wrong</title>
+    <meta name="theme-color" content="#f4333d" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,14 +17,69 @@
   </head>
 
   <body>
-    <main class="shell">
-      <section class="card" aria-labelledby="page-title">
-        <div class="error-icon" aria-hidden="true">!</div>
-        <h1 id="page-title" class="title">Something went wrong</h1>
-        <p class="subtitle">We couldn't complete the request. Please try again.</p>
-        <pre class="error-detail" aria-live="polite"><%= error.message %></pre>
-        <a class="btn btn-primary" href="/" role="button">Try again</a>
-      </section>
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-brand">
+          <img src="/assets/logo.png" alt="" class="logo" />
+          <div class="brand-text">
+            <span class="brand-name">sgID</span>
+            <span class="brand-sub">Singapore Government ID</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="page">
+      <div class="shell">
+        <section class="card" aria-labelledby="page-title">
+          <div class="card-accent" aria-hidden="true"></div>
+          <div class="card-body">
+            <div class="status-icon error" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M12 8v5"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                />
+                <circle cx="12" cy="16.5" r="1.2" fill="currentColor" />
+                <path
+                  d="M10.3 3.5 2.7 17a2 2 0 0 0 1.7 3h15.2a2 2 0 0 0 1.7-3L13.7 3.5a2 2 0 0 0-3.4 0Z"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+
+            <h1 id="page-title" class="title">Sign-in didn't complete</h1>
+            <p class="subtitle">
+              We couldn't verify your session. Please try signing in again.
+            </p>
+
+            <% if (error && error.message) { %>
+            <pre class="error-detail" aria-live="polite"><%= error.message %></pre>
+            <% } %>
+
+            <div class="actions">
+              <a class="btn btn-singpass" href="/" role="button">
+                <span class="sp-mark" aria-hidden="true">s</span>
+                <span>Try again</span>
+              </a>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <span>© <%= new Date().getFullYear() %> Government of Singapore. Built by Open Government Products.</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://id.gov.sg" rel="noopener">About sgID</a>
+          <a href="https://www.singpass.gov.sg" rel="noopener">About Singpass</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
