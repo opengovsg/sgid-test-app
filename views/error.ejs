@@ -2,31 +2,28 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>sgID Demo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sgID Demo · Error</title>
+    <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
-      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
     />
     <link rel="stylesheet" type="text/css" href="/assets/common.css" />
+  </head>
 
-  <body class="d-flex justify-content-center align-items-center p-4 background">
-    <div class="container d-flex align-items-center large">
-      <img src="/assets/logo.png" class="logo" />
-      <h2><b>Please try again</b></h2>
-      <br/>
-      <p>Oops. We encountered an error.</p>
-      <p>Error description: <%- error.message %></p>
-      <a class="btn btn-primary btn-block mt-4" href="/" role="button"
-        >Try again</a
-      >
-    </div>
+  <body>
+    <main class="shell">
+      <section class="card" aria-labelledby="page-title">
+        <div class="error-icon" aria-hidden="true">!</div>
+        <h1 id="page-title" class="title">Something went wrong</h1>
+        <p class="subtitle">We couldn't complete the request. Please try again.</p>
+        <pre class="error-detail" aria-live="polite"><%= error.message %></pre>
+        <a class="btn btn-primary" href="/" role="button">Try again</a>
+      </section>
+    </main>
   </body>
 </html>

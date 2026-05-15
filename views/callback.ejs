@@ -2,47 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>sgID Demo App</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sgID Demo · Welcome</title>
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap"
-      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
     />
     <link rel="stylesheet" type="text/css" href="/assets/common.css" />
+  </head>
 
-  <body class="d-flex justify-content-center align-items-center p-4 background">
-    <div class="container d-flex align-items-center large">
-      <img src="/assets/logo.png" class="logo" />
-        <table
-          class="table"
-          style="text-align: left; table-layout: fixed; word-wrap: break-word"
-        >
-          <thead>
-            <tr>
-              <th scope="col">Field</th>
-              <th scope="col">Value</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% data.forEach(function(row){ %>
-            <tr>
-              <td><%= row[0] %></td>
-              <td><%= row[1] %></td>
-            </tr>
-            <% }); %>
-          </tbody>
-        </table>
-      <a class="btn btn-primary btn-block mt-4" href="/" role="button"
-        >Try again</a
-      >
-    </div>
+  <body>
+    <main class="shell wide">
+      <section class="card" aria-labelledby="page-title">
+        <div class="brand">
+          <img src="/assets/logo.png" alt="sgID" class="logo" />
+        </div>
+
+        <p class="eyebrow">Verified</p>
+        <h1 id="page-title" class="title">Welcome back</h1>
+
+        <ul class="kv-list" aria-label="User information">
+          <% data.forEach(function(row){ %>
+          <li>
+            <span class="kv-key"><%= row[0] %></span>
+            <span class="kv-val"><%= row[1] %></span>
+          </li>
+          <% }); %>
+        </ul>
+
+        <div class="actions">
+          <a class="btn btn-ghost" href="/" role="button">Try again</a>
+        </div>
+      </section>
+    </main>
   </body>
 </html>

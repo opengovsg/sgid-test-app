@@ -10,5 +10,6 @@
 	},
 	"ts-node": {
 		"swc": true
-	}
+	},
+	"exclude": ["test", "dist", "node_modules"]
 }
