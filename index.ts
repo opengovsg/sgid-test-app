@@ -1,3 +1,4 @@
+import './utils/preflight'
 import { createApp } from './app'
 import { PORT } from './config'
 
