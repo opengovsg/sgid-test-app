@@ -6,12 +6,12 @@ on:
   push:
     branches: [develop]
 
-permissions:
-  contents: read
-
 concurrency:
   group: test-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   test:
