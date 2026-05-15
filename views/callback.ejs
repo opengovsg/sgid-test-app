@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>sgID Demo · Welcome</title>
+    <title>sgID Demo · Verified</title>
+    <meta name="theme-color" content="#f4333d" />
     <link rel="icon" type="image/png" href="/assets/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,28 +17,67 @@
   </head>
 
   <body>
-    <main class="shell wide">
-      <section class="card" aria-labelledby="page-title">
-        <div class="brand">
-          <img src="/assets/logo.png" alt="sgID" class="logo" />
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="site-brand">
+          <img src="/assets/logo.png" alt="" class="logo" />
+          <div class="brand-text">
+            <span class="brand-name">sgID</span>
+            <span class="brand-sub">Singapore Government ID</span>
+          </div>
         </div>
+        <div class="site-meta">Verified session</div>
+      </div>
+    </header>
 
-        <p class="eyebrow">Verified</p>
-        <h1 id="page-title" class="title">Welcome back</h1>
+    <main class="page">
+      <div class="shell wide">
+        <section class="card" aria-labelledby="page-title">
+          <div class="card-accent" aria-hidden="true"></div>
+          <div class="card-body">
+            <div class="status-icon success" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="m5 12 5 5L20 7"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
 
-        <ul class="kv-list" aria-label="User information">
-          <% data.forEach(function(row){ %>
-          <li>
-            <span class="kv-key"><%= row[0] %></span>
-            <span class="kv-val"><%= row[1] %></span>
-          </li>
-          <% }); %>
-        </ul>
+            <p class="eyebrow eyebrow-success">Verified with Singpass</p>
+            <h1 id="page-title" class="title">You're signed in</h1>
+            <p class="subtitle">
+              The following information was shared by Singpass via sgID.
+            </p>
 
-        <div class="actions">
-          <a class="btn btn-ghost" href="/" role="button">Try again</a>
-        </div>
-      </section>
+            <ul class="kv-list" aria-label="Verified user information">
+              <% data.forEach(function(row){ %>
+              <li>
+                <span class="kv-key"><%= row[0] %></span>
+                <span class="kv-val"><%= row[1] %></span>
+              </li>
+              <% }); %>
+            </ul>
+
+            <div class="actions">
+              <a class="btn btn-secondary" href="/" role="button">Sign in again</a>
+            </div>
+          </div>
+        </section>
+      </div>
     </main>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <span>© <%= new Date().getFullYear() %> Government of Singapore. Built by Open Government Products.</span>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="https://id.gov.sg" rel="noopener">About sgID</a>
+          <a href="https://www.singpass.gov.sg" rel="noopener">About Singpass</a>
+        </nav>
+      </div>
+    </footer>
   </body>
 </html>
