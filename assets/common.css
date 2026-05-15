@@ -1,28 +1,40 @@
 :root {
-  --color-primary: #1f4ed8;
-  --color-primary-hover: #1a3fb0;
-  --color-primary-soft: #eff4ff;
-  --color-bg: #f6f8fb;
-  --color-card: #ffffff;
-  --color-text: #0f172a;
-  --color-muted: #64748b;
-  --color-subtle: #94a3b8;
-  --color-border: #e4e8ef;
-  --color-border-strong: #cbd5e1;
-  --color-error: #dc2626;
-  --color-error-soft: #fee2e2;
-  --color-row-alt: #fafbfc;
+  /* Singpass brand */
+  --sp-red: #f4333d;
+  --sp-red-hover: #d92027;
+  --sp-red-pressed: #b71920;
+  --sp-red-soft: #fff1f2;
 
-  --shadow-card:
-    0 24px 60px -28px rgba(15, 23, 42, 0.22),
-    0 8px 24px -12px rgba(15, 23, 42, 0.08);
+  /* Neutral system inspired by gov.sg / Singpass relying-party guide */
+  --ink-900: #0b1f3a;
+  --ink-700: #1c2b46;
+  --ink-500: #455066;
+  --ink-400: #6b7691;
+  --ink-300: #9aa3b7;
+  --ink-200: #d8dde7;
+  --ink-100: #eef1f6;
+  --ink-50: #f6f8fb;
+  --surface: #ffffff;
 
-  --radius-card: 20px;
-  --radius-input: 12px;
+  /* Accent */
+  --accent: #1f4ed8;
+  --success: #0f7a4a;
+  --success-soft: #e6f4ed;
+  --warning: #b45309;
+  --error: #c0252e;
+  --error-soft: #fff1f2;
+
+  --shadow-sm: 0 1px 2px rgba(11, 31, 58, 0.06);
+  --shadow-md: 0 8px 24px -12px rgba(11, 31, 58, 0.18), 0 2px 6px -2px rgba(11, 31, 58, 0.06);
+  --shadow-lg: 0 28px 64px -24px rgba(11, 31, 58, 0.28), 0 10px 24px -12px rgba(11, 31, 58, 0.10);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
   --radius-pill: 999px;
 
   --font-sans:
-    'Inter', 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Inter', 'Public Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, monospace;
 }
@@ -43,20 +55,13 @@ body {
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.5;
-  color: var(--color-text);
+  color: var(--ink-900);
+  background: var(--ink-50);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px 20px;
-
-  background:
-    radial-gradient(at 85% -10%, rgba(31, 78, 216, 0.10), transparent 55%),
-    radial-gradient(at -10% 110%, rgba(14, 165, 233, 0.10), transparent 55%),
-    var(--color-bg);
+  flex-direction: column;
 }
 
 img {
@@ -66,8 +71,12 @@ img {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--accent);
   text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 h1,
@@ -77,28 +86,119 @@ p {
   margin: 0;
 }
 
+/* ---------- Top bar (gov.sg style) ---------- */
+
+.gov-bar {
+  background: #f0f0f0;
+  border-bottom: 1px solid var(--ink-200);
+  font-size: 12px;
+  color: var(--ink-500);
+}
+
+.gov-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6px 24px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gov-bar svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--ink-100);
+}
+
+.site-header-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-brand .logo {
+  height: 36px;
+  width: auto;
+}
+
+.site-brand .brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.site-brand .brand-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink-900);
+  letter-spacing: -0.01em;
+}
+
+.site-brand .brand-sub {
+  font-size: 12px;
+  color: var(--ink-400);
+}
+
+.site-meta {
+  font-size: 13px;
+  color: var(--ink-400);
+}
+
+/* ---------- Layout ---------- */
+
+.page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 20px;
+  background:
+    radial-gradient(at 90% 0%, rgba(244, 51, 61, 0.06), transparent 55%),
+    radial-gradient(at 0% 100%, rgba(31, 78, 216, 0.05), transparent 55%),
+    var(--ink-50);
+}
+
 .shell {
   width: 100%;
-  max-width: 460px;
+  max-width: 480px;
 }
 
 .shell.wide {
   max-width: 720px;
 }
 
+/* ---------- Card ---------- */
+
 .card {
-  background: var(--color-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card);
-  padding: 44px 36px;
-  animation: fadeIn 0.35s ease-out;
+  background: var(--surface);
+  border: 1px solid var(--ink-100);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  animation: rise 0.35s ease-out;
 }
 
-@keyframes fadeIn {
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
@@ -106,60 +206,92 @@ p {
   }
 }
 
-.brand {
+.card-accent {
+  height: 4px;
+  background: linear-gradient(90deg, var(--sp-red) 0%, #ff6b73 100%);
+}
+
+.card-body {
+  padding: 40px 36px;
+}
+
+.card-body.compact {
+  padding: 32px 32px;
+}
+
+/* ---------- Brand lockup inside card ---------- */
+
+.lockup {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 18px;
-  margin-bottom: 32px;
+  gap: 16px;
+  margin-bottom: 28px;
 }
 
-.brand .logo {
-  width: 56px;
+.lockup .logo {
+  height: 32px;
+  width: auto;
 }
 
-.brand .singpass {
-  width: 128px;
+.lockup .divider-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--ink-300);
 }
+
+.lockup .singpass {
+  height: 22px;
+  width: auto;
+}
+
+/* ---------- Type ---------- */
 
 .eyebrow {
-  font-size: 12px;
+  font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.12em;
   font-weight: 600;
-  color: var(--color-subtle);
+  color: var(--sp-red);
   text-align: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+}
+
+.eyebrow-success {
+  color: var(--success);
 }
 
 .title {
   text-align: center;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
-  letter-spacing: -0.015em;
-  margin-bottom: 28px;
+  letter-spacing: -0.02em;
+  color: var(--ink-900);
+  margin-bottom: 8px;
 }
 
 .subtitle {
   text-align: center;
-  color: var(--color-muted);
-  font-size: 14px;
-  margin-top: -16px;
+  color: var(--ink-500);
+  font-size: 15px;
   margin-bottom: 28px;
 }
+
+/* ---------- Buttons ---------- */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   padding: 14px 18px;
   font-family: inherit;
   font-size: 15px;
   font-weight: 600;
   line-height: 1;
-  border-radius: var(--radius-input);
+  border-radius: var(--radius-md);
   border: 1px solid transparent;
   text-decoration: none;
   cursor: pointer;
@@ -172,7 +304,7 @@ p {
 }
 
 .btn:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 3px solid rgba(244, 51, 61, 0.35);
   outline-offset: 2px;
 }
 
@@ -180,33 +312,66 @@ p {
   transform: translateY(1px);
 }
 
-.btn-primary {
-  background: var(--color-primary);
+/* Official Singpass primary CTA */
+.btn-singpass {
+  background: var(--sp-red);
   color: #fff;
-  box-shadow: 0 10px 22px -10px rgba(31, 78, 216, 0.55);
+  box-shadow: 0 8px 18px -8px rgba(244, 51, 61, 0.55);
 }
 
-.btn-primary:hover {
-  background: var(--color-primary-hover);
+.btn-singpass:hover {
+  background: var(--sp-red-hover);
+  text-decoration: none;
 }
 
-.btn-ghost {
+.btn-singpass:active {
+  background: var(--sp-red-pressed);
+}
+
+.btn-singpass .sp-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--sp-red);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink-900);
+  border-color: var(--ink-200);
+}
+
+.btn-secondary:hover {
+  border-color: var(--ink-400);
+  background: var(--ink-50);
+  text-decoration: none;
+}
+
+.btn-link {
   background: transparent;
-  color: var(--color-text);
-  border-color: var(--color-border);
+  color: var(--accent);
+  border-color: transparent;
 }
 
-.btn-ghost:hover {
-  background: var(--color-bg);
-  border-color: var(--color-border-strong);
+.btn-link:hover {
+  text-decoration: underline;
 }
+
+/* ---------- Divider with label ---------- */
 
 .divider {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 26px 0 18px;
-  color: var(--color-subtle);
+  margin: 24px 0 16px;
+  color: var(--ink-400);
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
@@ -218,8 +383,10 @@ p {
   content: '';
   flex: 1;
   height: 1px;
-  background: var(--color-border);
+  background: var(--ink-100);
 }
+
+/* ---------- Env chips ---------- */
 
 .env-row {
   display: flex;
@@ -231,43 +398,79 @@ p {
 .env-chip {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 8px 16px;
-  border: 1px solid var(--color-border);
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--ink-200);
   border-radius: var(--radius-pill);
   font-size: 13px;
   font-weight: 500;
-  color: var(--color-muted);
-  background: #fff;
+  color: var(--ink-500);
+  background: var(--surface);
   transition: all 0.15s ease;
 }
 
+.env-chip::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-300);
+}
+
 .env-chip:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: var(--color-primary-soft);
+  border-color: var(--sp-red);
+  color: var(--ink-900);
+  background: var(--sp-red-soft);
+  text-decoration: none;
+}
+
+.env-chip:hover::before {
+  background: var(--sp-red);
 }
 
 .env-chip:focus-visible {
-  outline: 2px solid var(--color-primary);
+  outline: 3px solid rgba(244, 51, 61, 0.35);
   outline-offset: 2px;
 }
+
+/* ---------- Trust strip ---------- */
+
+.trust {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ink-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--ink-400);
+  font-size: 12px;
+}
+
+.trust svg {
+  width: 14px;
+  height: 14px;
+  color: var(--success);
+}
+
+/* ---------- Key/value list ---------- */
 
 .kv-list {
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-input);
+  border: 1px solid var(--ink-100);
+  border-radius: var(--radius-md);
   overflow: hidden;
+  background: var(--surface);
 }
 
 .kv-list li {
   display: grid;
-  grid-template-columns: minmax(140px, 32%) 1fr;
+  grid-template-columns: minmax(160px, 34%) 1fr;
   gap: 16px;
   padding: 14px 18px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--ink-100);
   font-size: 14px;
 }
 
@@ -276,12 +479,12 @@ p {
 }
 
 .kv-list li:nth-child(even) {
-  background: var(--color-row-alt);
+  background: var(--ink-50);
 }
 
 .kv-key {
   align-self: center;
-  color: var(--color-subtle);
+  color: var(--ink-400);
   font-weight: 600;
   text-transform: uppercase;
   font-size: 11px;
@@ -290,101 +493,145 @@ p {
 
 .kv-val {
   font-weight: 500;
+  color: var(--ink-900);
   word-break: break-word;
   font-variant-numeric: tabular-nums;
 }
 
-.actions {
-  margin-top: 28px;
-}
+/* ---------- Status icons ---------- */
 
-.error-icon {
+.status-icon {
   width: 56px;
   height: 56px;
-  margin: 0 auto 20px;
+  margin: 0 auto 16px;
   border-radius: 50%;
-  background: var(--color-error-soft);
-  color: var(--color-error);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1;
 }
+
+.status-icon.success {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.status-icon.error {
+  background: var(--error-soft);
+  color: var(--error);
+}
+
+.status-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* ---------- Error details ---------- */
 
 .error-detail {
   font-family: var(--font-mono);
   font-size: 12px;
-  background: #f1f5f9;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
+  background: var(--ink-50);
+  border: 1px solid var(--ink-100);
+  border-radius: var(--radius-md);
   padding: 12px 14px;
-  margin: 16px 0 24px;
-  color: var(--color-text);
+  margin: 8px 0 24px;
+  color: var(--ink-700);
   word-break: break-word;
   text-align: left;
+  white-space: pre-wrap;
 }
 
-.footer-note {
-  margin-top: 24px;
-  text-align: center;
+/* ---------- Actions row ---------- */
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.actions .btn {
+  flex: 1;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  background: var(--surface);
+  border-top: 1px solid var(--ink-100);
+  color: var(--ink-400);
   font-size: 12px;
-  color: var(--color-subtle);
 }
 
-@media (max-width: 520px) {
-  body {
-    padding: 16px;
+.site-footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.site-footer a {
+  color: var(--ink-500);
+}
+
+.site-footer .footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 560px) {
+  .page {
+    padding: 24px 14px;
   }
-  .card {
-    padding: 32px 22px;
+  .card-body {
+    padding: 28px 22px;
   }
   .title {
     font-size: 22px;
   }
+  .subtitle {
+    font-size: 14px;
+  }
   .kv-list li {
     grid-template-columns: 1fr;
     gap: 4px;
-    padding: 12px 16px;
+    padding: 12px 14px;
   }
   .kv-key {
     font-size: 10px;
   }
-  .brand {
+  .lockup {
     gap: 12px;
   }
-  .brand .logo {
-    width: 48px;
+  .lockup .logo {
+    height: 28px;
   }
-  .brand .singpass {
-    width: 108px;
+  .lockup .singpass {
+    height: 20px;
+  }
+  .site-header-inner {
+    padding: 12px 16px;
+  }
+  .site-brand .logo {
+    height: 30px;
+  }
+  .site-meta {
+    display: none;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0b1220;
-    --color-card: #111a2e;
-    --color-text: #e2e8f0;
-    --color-muted: #94a3b8;
-    --color-subtle: #64748b;
-    --color-border: #1f2a44;
-    --color-border-strong: #2a3a5e;
-    --color-row-alt: #0e1729;
-    --color-primary-soft: rgba(31, 78, 216, 0.16);
-    --color-error-soft: rgba(220, 38, 38, 0.15);
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    animation: none;
   }
-  body {
-    background:
-      radial-gradient(at 85% -10%, rgba(31, 78, 216, 0.18), transparent 55%),
-      radial-gradient(at -10% 110%, rgba(14, 165, 233, 0.14), transparent 55%),
-      var(--color-bg);
-  }
-  .btn-ghost {
-    color: var(--color-text);
-  }
-  .error-detail {
-    background: rgba(255, 255, 255, 0.04);
+  * {
+    transition: none !important;
   }
 }
