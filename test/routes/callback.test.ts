@@ -85,6 +85,26 @@ describe('GET /callback', () => {
     assert.equal(res.status, 500)
   })
 
+  test('returns 400 when code/state query params are missing', async () => {
+    const res = await request(app).get('/callback')
+    assert.equal(res.status, 400)
+  })
+
+  test('returns 400 when state maps to no configured environment', async () => {
+    const res = await request(app)
+      .get('/callback')
+      .query({ code: 'code', state: 'not-a-real-env' })
+    assert.equal(res.status, 400)
+  })
+
+  test('returns 400 when the session is expired/missing', async () => {
+    mock.method(nodeCache, 'get', () => undefined)
+    const res = await request(app)
+      .get('/callback')
+      .query({ code: 'code', state: 'prod' })
+    assert.equal(res.status, 400)
+  })
+
   test('routes to the correct env-specific service based on the `state` query param', async () => {
     mock.method(nodeCache, 'get', () => ({
       codeVerifier: 'cv',
