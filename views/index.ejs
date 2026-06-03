@@ -69,7 +69,7 @@
               class="btn btn-singpass"
               id="login-btn-prod"
               role="button"
-              href="<%- authUrl.prod -%>"
+              href="<%= authUrl.prod %>"
             >
               <span class="sp-mark" aria-hidden="true">s</span>
               <span>Login with Singpass app</span>
@@ -78,11 +78,11 @@
             <div class="divider" role="separator">or try another environment</div>
 
             <div class="env-row">
-              <a class="env-chip" id="login-btn-stag" href="<%- authUrl.stag -%>">
+              <a class="env-chip" id="login-btn-stag" href="<%= authUrl.stag %>">
                 Staging
               </a>
               <% if (authUrl.dev) { %>
-              <a class="env-chip" id="login-btn-dev" href="<%- authUrl.dev -%>">
+              <a class="env-chip" id="login-btn-dev" href="<%= authUrl.dev %>">
                 Development
               </a>
               <% } %>
@@ -90,7 +90,7 @@
               <a
                 class="env-chip"
                 id="login-btn-passkey-prod"
-                href="<%- authUrl.passkeyProd -%>"
+                href="<%= authUrl.passkeyProd %>"
               >
                 Passkeys
               </a>
@@ -99,7 +99,7 @@
               <a
                 class="env-chip"
                 id="login-btn-passkey-dev"
-                href="<%- authUrl.passkeyDev -%>"
+                href="<%= authUrl.passkeyDev %>"
               >
                 Passkeys (Dev)
               </a>
