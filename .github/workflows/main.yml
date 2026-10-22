@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 env:
-  NODE_VERSION: 24
+  NODE_VERSION: 24.22.1
   APPLICATION_NAME: sgid-demo
   PRODUCTION_ENVIRONMENT_NAME: sgid-demo-node16-production
 
